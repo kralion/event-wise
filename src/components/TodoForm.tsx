@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
-import type { UploadChangeParam } from "antd/lib/upload";
 import { nanoid } from "nanoid";
 const fomat = "HH:mm";
 import {
@@ -12,48 +10,16 @@ import {
   DatePicker,
   InputNumber,
   TimePicker,
-  Upload,
   message,
 } from "antd";
 
-const getBase64 = (img: Blob, callback: (imageUrl: string) => void) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result as string));
-  reader.readAsDataURL(img);
-};
-
-const beforeUpload = (file: File) => {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("Solo puedes subir archivos JPG/PNG!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("La imagen debe ser menor a 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-};
-
-function TodoForm({ addTodo, resetForm, Todo, form }: any) {
-  const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
-  const handleFormValuesChange = (
-    changedValues: any,
-    allValues: any,
-    info: UploadChangeParam
-  ) => {
+function TodoForm({ addTodo, resetForm, form }: any) {
+  const handleFormValuesChange = (changedValues: any, allValues: any) => {
     console.log("changedValues", changedValues);
     console.log("allValues", allValues);
-    if (info.file.status === "uploading") {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === "done") {
-      getBase64(info.file.originFileObj as Blob, (imageUrl) => {
-        setImageUrl(imageUrl);
-        setLoading(false);
-      });
-    }
+    form.setFieldsValue({
+      ...allValues,
+    });
   };
   const onFinish = (values: any) => {
     console.log("Success:", values);
@@ -66,19 +32,9 @@ function TodoForm({ addTodo, resetForm, Todo, form }: any) {
       duration: values.duration,
       location: values.location,
       stakeholders: values.stakeholders,
-      thumbnail: imageUrl,
     });
     resetForm();
   };
-
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 10 }} className="px-5">
-        Cargar Imagen
-      </div>
-    </div>
-  );
 
   return (
     <div>
@@ -93,6 +49,7 @@ function TodoForm({ addTodo, resetForm, Todo, form }: any) {
             console.log("Error en el ingreso de Datos:", errorInfo);
           }}
           form={form}
+          onValuesChange={handleFormValuesChange}
           onFinish={onFinish}
           autoComplete="on"
         >
@@ -107,14 +64,13 @@ function TodoForm({ addTodo, resetForm, Todo, form }: any) {
             name="title"
             label="Título"
           >
-            <Input className="font-Inter" />
+            <Input className="font-Inter rounded-full" />
           </Form.Item>
           <Form.Item name="description" label="Descripcion">
             <Input.TextArea rows={4} className="font-Inter" />
           </Form.Item>
-
           <Form.Item name="priority" label="Importancia">
-            <Select className="w-10 font-Inter">
+            <Select className="w-10 text-center font-Inter">
               <Select.Option value="baja" className="font-Inter">
                 Baja
               </Select.Option>
@@ -136,7 +92,10 @@ function TodoForm({ addTodo, resetForm, Todo, form }: any) {
             name="date"
             label="Fecha"
           >
-            <DatePicker className=" font-Inter cursor-pointer w-52" />
+            <DatePicker
+              placeholder=""
+              className=" font-Inter cursor-pointer w-52"
+            />
           </Form.Item>
           <Form.Item
             rules={[
@@ -150,6 +109,7 @@ function TodoForm({ addTodo, resetForm, Todo, form }: any) {
           >
             <TimePicker.RangePicker
               use12Hours
+              placeholder={["Inicio", "Fin"]}
               minuteStep={15}
               format={fomat}
               className="pl-10 w-56 font-Inter"
@@ -251,26 +211,26 @@ function TodoForm({ addTodo, resetForm, Todo, form }: any) {
           <Form.Item name="stakeholders" label="Involucrados">
             <InputNumber min={1} max={10} className="pl-5" />
           </Form.Item>
+          <div className=" flex gap-24 mt-5 justify-center">
+            <Form.Item>
+              <Button
+                htmlType="submit"
+                className="font-Inter text-slate-900 hover:bg-cyan-100 w-24 active:bg-cyan-200 active:scale-110"
+              >
+                Crear
+              </Button>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                danger
+                className="font-Inter active:scale-110 w-24 hover:bg-red-100 active:bg-red-200"
+                onClick={resetForm}
+              >
+                Limpiar
+              </Button>
+            </Form.Item>
+          </div>
         </Form>
-      </div>
-      <div className=" flex gap-24 mt-5 justify-center">
-        <Form.Item>
-          <Button
-            htmlType="submit"
-            className="font-Inter hover:bg-cyan-100 w-24 active:bg-cyan-200 active:scale-110"
-          >
-            Crear
-          </Button>
-        </Form.Item>
-        <Form.Item>
-          <Button
-            danger
-            className="font-Inter active:scale-110 w-24 hover:bg-red-100 active:bg-red-200"
-            onClick={resetForm}
-          >
-            Limpiar
-          </Button>
-        </Form.Item>
       </div>
     </div>
   );
