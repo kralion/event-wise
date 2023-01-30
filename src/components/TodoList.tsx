@@ -1,14 +1,12 @@
 import Todo from "./Todo";
 
-function TodoList({ initialTodos, deleteTodo, editTodo, finishTodo }: any) {
+function TodoList({ Todos, deleteTodo, editTodo, finishTodo }: any) {
   return (
-    <div className="w-autp mx-3 border rounded-xl px-5 pt-10 pb-5">
-      <h1 className="text-xl font-semibold font-Roboto pb-5">
-        TU PANEL DE TAREAS
-      </h1>
-      <div className="flex gap-10">
-        {initialTodos.map((todo: any) => (
+    <div className="w-auto mx-3  border rounded-xl px-5 py-12">
+      <div className=" grid md:grid-cols-2 lg:grid-cols-3  gap-10 mx-7">
+        {Todos.map((todo: any) => (
           <Todo
+            key={todo.id}
             todo={todo}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
