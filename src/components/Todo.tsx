@@ -3,7 +3,7 @@ import {
 	CheckCircleOutlined,
 	DeleteOutlined,
 } from "@ant-design/icons";
-import { Card, Popover, Tag, Space } from "antd";
+import { Card, Popover, Tag, Space, Checkbox } from "antd";
 import { TodoPROTOTYPE } from "../App";
 
 interface TodoProps {
@@ -45,14 +45,9 @@ function Todo({ todo, deleteTodo, finishTodo, editTodo }: TodoProps) {
 						/>
 					</Popover>,
 					<Popover placement="bottom" content={finishedPopover}>
-						<CheckCircleOutlined
-							className="active:opacity-50"
-							onClick={
-								isFinished ? () => finishTodo(todo) : () => finishTodo(todo)
-							}
-							// isFinished ? todo : { ...todo, isFinished: true }
-
-							key="finished"
+						<Checkbox
+							checked={isFinished === true}
+							className="active:opacity-50 duration-200 active:scale-110"
 						/>
 					</Popover>,
 				]}

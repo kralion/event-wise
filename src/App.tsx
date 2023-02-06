@@ -101,7 +101,9 @@ function App() {
 
 	const finishTodo = (todoSelected: TodoPROTOTYPE) => {
 		const newTodos = todos.map((todo) =>
-			todo.id === todoSelected.id ? { ...todo, isFinished: true } : todo,
+			todo.id === todoSelected.id
+				? { ...todo, isFinished: !todo.isFinished }
+				: todo,
 		);
 		setTodos(newTodos);
 	};
