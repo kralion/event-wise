@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { TodoPROTOTYPE } from "../App";
 import {
 	Form,
@@ -27,10 +27,13 @@ function TodoForm({
 	setDataToEdit,
 }: todoFormProps) {
 	const [form] = Form.useForm();
+	const [id, setId] = useState('');
 
 	useEffect(() => {
 		if (dataToEdit) {
+			console.log(dataToEdit);
 			form.setFieldsValue(dataToEdit);
+			setId(dataToEdit.id);
 		} else {
 			form.resetFields();
 		}
@@ -51,10 +54,10 @@ function TodoForm({
 			...form.getFieldsValue(),
 			...values,
 		};
-
 		if (!dataToEdit) {
 			addTodo(todo);
 		} else {
+			todo.id = id;
 			editTodo(todo);
 		}
 		cleanForm();
