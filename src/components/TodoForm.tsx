@@ -31,7 +31,6 @@ function TodoForm({
 
 	useEffect(() => {
 		if (dataToEdit) {
-			console.log(dataToEdit);
 			form.setFieldsValue(dataToEdit);
 			setId(dataToEdit.id);
 		} else {

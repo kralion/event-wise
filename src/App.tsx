@@ -81,7 +81,6 @@ function App() {
 
   const addTodo = (todo: TodoPROTOTYPE) => {
     todo.id = nanoid();
-    console.log(todo);
     setTodos([...todos, todo]);
   };
 
