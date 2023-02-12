@@ -55,18 +55,26 @@ function Todo({ todo, deleteTodo, finishTodo, setDataToEdit }: TodoProps) {
 			>
 				<Meta className="text-left" title={title} description={description} />
 				<Space size={[0, 8]} wrap>
-					<Tag
-						className="mr-[220px] mt-4 w-12 text-center"
-						color={
-							priority === "baja"
-								? "green"
-								: priority === "alta"
-								? "red"
-								: "gold"
-						}
-					>
-						{priority}
-					</Tag>
+					<div className="flex gap-2">
+						<div className="mt-4">
+							<span className="mr-1 text-[13px] text-zinc-400 font-mono">
+								Prioridad:
+							</span>
+						</div>
+
+						<Tag
+							className="mr-[220px] mt-4 w-12 text-center"
+							color={
+								priority === "baja"
+									? "green"
+									: priority === "alta"
+									? "red"
+									: "gold"
+							}
+						>
+							{priority}
+						</Tag>
+					</div>
 				</Space>
 			</Card>
 		</>
