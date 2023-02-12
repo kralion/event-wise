@@ -8,9 +8,9 @@ import { TodoPROTOTYPE } from "../App";
 
 interface TodoProps {
 	todo: TodoPROTOTYPE;
-	deleteTodo: (todo: TodoPROTOTYPE) => void;
-	finishTodo: (todo: TodoPROTOTYPE) => void;
-	editTodo: (todo: TodoPROTOTYPE) => void;
+	deleteTodo: (todoSelected: TodoPROTOTYPE) => void;
+	finishTodo: (todoSelected: TodoPROTOTYPE) => void;
+	setDataToEdit: (todoSelected: TodoPROTOTYPE | null) => void;
 }
 
 const { Meta } = Card;
@@ -18,8 +18,8 @@ const deletePopover = <p>Eliminar To Do</p>;
 const editPopover = <p>Editar To Do</p>;
 const finishedPopover = <p>Dar por Terminado</p>;
 
-function Todo({ todo, deleteTodo, finishTodo, editTodo }: TodoProps) {
-	const { title, description, priority, isFinished } = todo;
+function Todo({ todo, deleteTodo, finishTodo, setDataToEdit }: TodoProps) {
+	const { title, description, priority } = todo;
 	return (
 		<>
 			<Card
@@ -40,18 +40,14 @@ function Todo({ todo, deleteTodo, finishTodo, editTodo }: TodoProps) {
 					<Popover placement="bottom" content={editPopover}>
 						<EditOutlined
 							className="active:opacity-50"
-							onClick={() => editTodo(todo)}
+							onClick={() => setDataToEdit(todo)}
 							key="edit"
 						/>
 					</Popover>,
 					<Popover placement="bottom" content={finishedPopover}>
 						<CheckCircleOutlined
 							className="active:opacity-50"
-							onClick={
-								isFinished ? () => finishTodo(todo) : () => finishTodo(todo)
-							}
-							// isFinished ? todo : { ...todo, isFinished: true }
-
+							onClick={() => finishTodo(todo)}
 							key="finished"
 						/>
 					</Popover>,

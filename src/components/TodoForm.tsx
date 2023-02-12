@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { TodoPROTOTYPE } from "../App";
 import {
 	Form,
@@ -10,59 +10,64 @@ import {
 	InputNumber,
 	TimePicker,
 } from "antd";
-
-const initialFormValues = {
-	id: "",
-	title: " Lorem ipsum dolor sit amet, consectetur adip",
-	description: " Lorem ipsum dolor sit amet, consectetur adip eget nulla ",
-	priority: "",
-	date: "",
-	duration: "",
-	location: "",
-	isFinished: false,
-	stakeholders: 1,
-};
-const fomat = "HH:mm";
+const timeFormat = "HH:mm";
+const dateFormat = "YYYY-MM-DD";
 
 interface todoFormProps {
 	addTodo: (todo: TodoPROTOTYPE) => void;
 	dataToEdit: TodoPROTOTYPE | null;
-	saveEdit: (editedTodo: TodoPROTOTYPE) => void;
-	editTodo: (todoSelected: TodoPROTOTYPE) => void;
+	setDataToEdit: (todo: TodoPROTOTYPE | null) => void;
+	editTodo: (todo: TodoPROTOTYPE) => void;
 }
 
-function TodoForm({ addTodo, saveEdit }: todoFormProps) {
+function TodoForm({
+	addTodo,
+	dataToEdit,
+	editTodo,
+	setDataToEdit,
+}: todoFormProps) {
 	const [form] = Form.useForm();
-	const [isEdit, setIsEdit] = useState(false);
-	const [formValues, setFormValues] = useState(initialFormValues);
 
 	useEffect(() => {
-		if (formValues.id) {
-			setIsEdit(true);
+		if (dataToEdit) {
+			form.setFieldsValue(dataToEdit);
 		} else {
-			setIsEdit(false);
+			form.resetFields();
 		}
-	}, [formValues]);
+	}, [dataToEdit]);
+
+	const handleValuesChange = (
+		changedValues: TodoPROTOTYPE,
+		allValues: TodoPROTOTYPE,
+	) => {
+		form.setFieldsValue({
+			...allValues,
+			...changedValues,
+		});
+	};
 
 	const onFinish = (values: TodoPROTOTYPE) => {
 		const todo = {
-			...formValues,
+			...form.getFieldsValue(),
 			...values,
 		};
 
-		if (formValues.id) {
-			saveEdit(todo);
-		} else {
+		if (!dataToEdit) {
 			addTodo(todo);
+		} else {
+			editTodo(todo);
 		}
-
+		cleanForm();
+	};
+	const cleanForm = () => {
 		form.resetFields();
+		setDataToEdit(null);
 	};
 
 	return (
 		<div>
 			<div className="w-auto mx-3 border-t rounded-xl font-Inter px-10 pt-10 pb-5 shadow-2xl">
-				<h1 className="text-xl font-semibold pb-5">CREAR TAREA</h1>
+				<h1 className="text-xl font-semibold pb-5">TODO DETAILS</h1>
 				<Form
 					labelCol={{ span: 7 }}
 					wrapperCol={{ span: 24 }}
@@ -73,7 +78,9 @@ function TodoForm({ addTodo, saveEdit }: todoFormProps) {
 					}}
 					form={form}
 					onFinish={onFinish}
-					autoComplete="on"
+					onValuesChange={(changedValues, allValues) =>
+						handleValuesChange(changedValues, allValues)
+					}
 				>
 					<Form.Item
 						rules={[
@@ -86,7 +93,7 @@ function TodoForm({ addTodo, saveEdit }: todoFormProps) {
 						name="title"
 						label="Título"
 					>
-						<Input className="font-Inter rounded-xl" />
+						<Input name="title" className="font-Inter rounded-xl" />
 					</Form.Item>
 					<Form.Item name="description" label="Descripcion">
 						<Input.TextArea rows={4} className="font-Inter rounded-xl" />
@@ -117,6 +124,7 @@ function TodoForm({ addTodo, saveEdit }: todoFormProps) {
 						<DatePicker
 							placeholder=""
 							className=" font-Inter cursor-pointer w-52 rounded-lg"
+							format={dateFormat}
 						/>
 					</Form.Item>
 					<Form.Item
@@ -133,7 +141,7 @@ function TodoForm({ addTodo, saveEdit }: todoFormProps) {
 							use12Hours
 							placeholder={["Inicio", "Fin"]}
 							minuteStep={15}
-							format={fomat}
+							format={timeFormat}
 							className="pl-10 w-56 font-Inter rounded-lg"
 						/>
 					</Form.Item>
@@ -239,14 +247,14 @@ function TodoForm({ addTodo, saveEdit }: todoFormProps) {
 								htmlType="submit"
 								className="font-Inter text-slate-900 hover:bg-cyan-100 hover:drop-shadow-xl hover:shadow-cyan-300 w-32 h-10 rounded-xl active:bg-cyan-200 active:scale-110"
 							>
-								{isEdit ? "Guardar" : "Crear"}
+								Enviar
 							</Button>
 						</Form.Item>
 						<Form.Item>
 							<Button
 								danger
 								className="font-Inter active:scale-110 hover:bg-red-100  hover:drop-shadow-xl hover:shadow-red-300 w-32 h-10 rounded-xl active:bg-red-200"
-								onClick={() => form.resetFields()}
+								onClick={cleanForm}
 							>
 								Limpiar
 							</Button>

@@ -88,21 +88,17 @@ function App() {
 		const newTodos = todos.filter((todo) => todo.id !== todoSelected.id);
 		setTodos(newTodos);
 	};
+
 	const editTodo = (todoSelected: TodoPROTOTYPE) => {
-		setDataToEdit(todoSelected);
-	};
-	const saveEdit = (editedTodo: TodoPROTOTYPE) => {
-		const newTodos = todos.map((todo) =>
-			todo.id === editedTodo.id ? editedTodo : todo,
+		const newTodos = todos.filter((todo) =>
+			todo.id === todoSelected.id ? todoSelected : todo,
 		);
+
 		setTodos(newTodos);
-		setDataToEdit(null);
 	};
 
 	const finishTodo = (todoSelected: TodoPROTOTYPE) => {
-		const newTodos = todos.map((todo) =>
-			todo.id === todoSelected.id ? { ...todo, isFinished: true } : todo,
-		);
+		const newTodos = todos.filter((todo) => todo.id !== todoSelected.id);
 		setTodos(newTodos);
 	};
 
@@ -150,15 +146,15 @@ function App() {
 				<div className="App flex gap-5">
 					<TodoForm
 						addTodo={addTodo}
-						editTodo={editTodo}
 						dataToEdit={dataToEdit}
-						saveEdit={saveEdit}
+						setDataToEdit={setDataToEdit}
+						editTodo={editTodo}
 					/>
 					<TodoList
 						todos={todos}
 						deleteTodo={deleteTodo}
-						editTodo={editTodo}
 						finishTodo={finishTodo}
+						setDataToEdit={setDataToEdit}
 					/>
 				</div>
 			</div>
