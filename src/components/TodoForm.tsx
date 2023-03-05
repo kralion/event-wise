@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { TodoPROTOTYPE } from "../App";
 import {
 	Form,
@@ -15,28 +14,18 @@ const dateFormat = "YYYY-MM-DD";
 
 interface todoFormProps {
 	addTodo: (todo: TodoPROTOTYPE) => void;
-	dataToEdit: TodoPROTOTYPE | null;
-	setDataToEdit: (todo: TodoPROTOTYPE | null) => void;
-	editTodo: (todo: TodoPROTOTYPE) => void;
+	currentTodo: TodoPROTOTYPE[];
+	updateTodo: (todoEdited: TodoPROTOTYPE) => void;
+	editMode: boolean;
 }
 
 function TodoForm({
 	addTodo,
-	dataToEdit,
-	editTodo,
-	setDataToEdit,
+	currentTodo,
+	updateTodo,
+	editMode,
 }: todoFormProps) {
 	const [form] = Form.useForm();
-	const [id, setId] = useState("");
-
-	useEffect(() => {
-		if (dataToEdit) {
-			form.setFieldsValue(dataToEdit);
-			setId(dataToEdit.id);
-		} else {
-			form.resetFields();
-		}
-	}, [dataToEdit]);
 
 	const handleValuesChange = (
 		changedValues: TodoPROTOTYPE,
@@ -46,30 +35,29 @@ function TodoForm({
 			...allValues,
 			...changedValues,
 		});
+		console.log("Changed Values:", changedValues);
+		console.log("New Todo", form.getFieldsValue());
+	};
+
+	const cleanForm = () => {
+		form.resetFields();
 	};
 
 	const onFinish = (values: TodoPROTOTYPE) => {
-		const todo = {
-			...form.getFieldsValue(),
-			...values,
-		};
-		if (!dataToEdit) {
-			addTodo(todo);
+		if (currentTodo) {
+			addTodo(values);
 		} else {
-			todo.id = id;
-			editTodo(todo);
+			updateTodo(values);
 		}
 		cleanForm();
-	};
-	const cleanForm = () => {
-		form.resetFields();
-		setDataToEdit(null);
 	};
 
 	return (
 		<div>
-			<div className="w-auto mx-3 border-t rounded-xl font-Inter px-10 pt-10 pb-5 shadow-2xl">
-				<h1 className="text-xl font-semibold pb-5">TODO DETAILS</h1>
+			<div className="backdrop-blur bg-white/50 shadow-2xl w-auto mx-3 border-t rounded-xl px-10 pt-10 pb-5">
+				<h1 className="text-xl font-SourceSansPro font-semibold pb-5">
+					{editMode ? "Editar Tarea" : "Nueva Tarea"}
+				</h1>
 				<div>
 					<Form
 						labelCol={{ span: 7 }}
@@ -80,6 +68,7 @@ function TodoForm({
 							console.log("Error en el ingreso de Datos:", errorInfo);
 						}}
 						form={form}
+						className="font-SourceSansPro"
 						onFinish={onFinish}
 						onValuesChange={(changedValues, allValues) =>
 							handleValuesChange(changedValues, allValues)
@@ -250,7 +239,7 @@ function TodoForm({
 									htmlType="submit"
 									className="font-Inter text-slate-900 hover:bg-cyan-100 hover:drop-shadow-xl hover:shadow-cyan-300 w-32 h-10 rounded-xl active:bg-cyan-200 active:scale-110"
 								>
-									Enviar
+									{editMode ? "Guardar" : "Agregar"}
 								</Button>
 							</Form.Item>
 							<Form.Item>

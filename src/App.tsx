@@ -2,8 +2,8 @@ import { useState } from "react";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
 import { ConfigProvider, theme, Button } from "antd";
-const darkThemeIcon = require("./assets/darkThemeIcon.png");
-const lightThemeIcon = require("./assets/lightThemeIcon.png");
+import darkThemeIcon from "./assets/darkThemeIcon.png";
+import lightThemeIcon from "./assets/lightThemeIcon.png";
 import esES from "antd/es/locale/es_ES";
 import { nanoid } from "nanoid";
 
@@ -69,11 +69,27 @@ const initialTodos = [
 		stakeholders: 3,
 	},
 ];
+
+const initialTodoValues = [
+	{
+		id: nanoid(),
+		title: "",
+		description: "",
+		priority: "baja",
+		date: "",
+		duration: "",
+		isFinished: false,
+		location: "",
+		stakeholders: 3,
+	},
+];
 function App() {
-	const [todos, setTodos] = useState<TodoPROTOTYPE[]>(initialTodos);
+	const [todos, setTodos] = useState(initialTodos);
 	const { defaultAlgorithm, darkAlgorithm } = theme;
 	const [isDarkMode, setIsDarkMode] = useState(false);
-	const [dataToEdit, setDataToEdit] = useState<TodoPROTOTYPE | null>(null);
+	const [editMode, setEditMode] = useState(false);
+	const [currentTodo, setCurrentTodo] =
+		useState<TodoPROTOTYPE[]>(initialTodoValues);
 
 	const handleThemeChange = () => {
 		setIsDarkMode((previousValue) => !previousValue);
@@ -84,21 +100,22 @@ function App() {
 		setTodos([...todos, todo]);
 	};
 
-	const deleteTodo = (todoSelected: TodoPROTOTYPE) => {
-		const newTodos = todos.filter((todo) => todo.id !== todoSelected.id);
-		setTodos(newTodos);
+	const editTodo = (todo: TodoPROTOTYPE) => {
+		setEditMode(true);
+		setCurrentTodo([todo]);
 	};
 
-	const editTodo = (todoSelected: TodoPROTOTYPE) => {
-		var newTodos = todos.filter((todo) => todo.id !== todoSelected.id);
-		newTodos = [...newTodos, todoSelected];
+	const deleteTodo = (todoSelected: TodoPROTOTYPE) => {
+		setTodos(todos.filter((todo) => todo.id !== todoSelected.id));
+	};
 
-		setTodos(newTodos);
+	const updateTodo = (todoEdited: TodoPROTOTYPE) => {
+		setTodos(todos.map((todo) => (todo.id === todoEdited.id ? todo : todo)));
+		setEditMode(false);
 	};
 
 	const finishTodo = (todoSelected: TodoPROTOTYPE) => {
-		const newTodos = todos.filter((todo) => todo.id !== todoSelected.id);
-		setTodos(newTodos);
+		setTodos(todos.filter((todo) => todo.id !== todoSelected.id));
 	};
 
 	return (
@@ -108,7 +125,7 @@ function App() {
 			}}
 			locale={esES}
 		>
-			<div className="App w-auto mx-7 mb-7">
+			<div className="App w-auto mx-7 mb-36">
 				<div className="flex justify-center ">
 					<div className=" flex justify-center my-12 gap-3">
 						<svg
@@ -144,18 +161,30 @@ function App() {
 
 				<div className="App flex gap-5">
 					<TodoForm
+						editMode={editMode}
 						addTodo={addTodo}
-						dataToEdit={dataToEdit}
-						setDataToEdit={setDataToEdit}
-						editTodo={editTodo}
+						currentTodo={currentTodo}
+						updateTodo={updateTodo}
 					/>
 					<TodoList
 						todos={todos}
 						deleteTodo={deleteTodo}
 						finishTodo={finishTodo}
-						setDataToEdit={setDataToEdit}
+						editTodo={editTodo}
 					/>
 				</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
+				<div className="bubble">{""}</div>
 			</div>
 		</ConfigProvider>
 	);

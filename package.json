@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "antd": "^5.1.6",
-    "dayjs": "^1.11.7",
     "nano-id": "^1.1.0",
     "nanoid": "^4.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sass": "^1.58.3"
   },
   "devDependencies": {
     "@types/node": "^18.13.0",
