@@ -4,21 +4,16 @@ import {
 	DeleteOutlined,
 } from "@ant-design/icons";
 import { Card, Popover, Tag, Space } from "antd";
-import { TodoPROTOTYPE } from "../App";
-
-interface TodoProps {
-	todo: TodoPROTOTYPE;
-	deleteTodo: (todoSelected: TodoPROTOTYPE) => void;
-	finishTodo: (todoSelected: TodoPROTOTYPE) => void;
-	editTodo: (todo: TodoPROTOTYPE) => void;
-}
+import useTodo from "../hooks/useTodo";
+import { TodoPROTOTYPE } from "../context/TodoContext";
 
 const { Meta } = Card;
 const deletePopover = <p>Eliminar To Do</p>;
 const editPopover = <p>Editar To Do</p>;
 const finishedPopover = <p>Dar por Terminado</p>;
 
-function Todo({ todo, deleteTodo, finishTodo, editTodo }: TodoProps) {
+function Todo({ todo }: { todo: TodoPROTOTYPE }) {
+	const { deleteTodo, editTodo, finishTodo } = useTodo();
 	const { title, description, priority } = todo;
 	return (
 		<>

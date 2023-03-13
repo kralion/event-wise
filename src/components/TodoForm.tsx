@@ -1,4 +1,5 @@
-import { TodoPROTOTYPE } from "../App";
+import { TodoPROTOTYPE, useTodoContext } from "../context/TodoContext";
+import useTodo from "../hooks/useTodo";
 import {
 	Form,
 	Input,
@@ -9,23 +10,33 @@ import {
 	InputNumber,
 	TimePicker,
 } from "antd";
+import { useEffect } from "react";
 const timeFormat = "HH:mm";
 const dateFormat = "YYYY-MM-DD";
 
-interface todoFormProps {
-	addTodo: (todo: TodoPROTOTYPE) => void;
-	currentTodo: TodoPROTOTYPE[];
-	updateTodo: (todoEdited: TodoPROTOTYPE) => void;
-	editMode: boolean;
-}
-
-function TodoForm({
-	addTodo,
-	currentTodo,
-	updateTodo,
-	editMode,
-}: todoFormProps) {
+function TodoForm() {
+	const { addTodo, updateTodo, currentTodo } = useTodo();
+	const { editMode, setEditMode } = useTodoContext();
 	const [form] = Form.useForm();
+
+	useEffect(() => {
+		if (currentTodo) {
+			form.setFieldsValue({
+				...currentTodo,
+			});
+		}
+	}, [currentTodo, form]);
+
+	const handleUndo = () => {
+		if (currentTodo) {
+			form.setFieldsValue({
+				...currentTodo,
+			});
+		} else {
+			form.resetFields();
+			setEditMode(false);
+		}
+	};
 
 	const handleValuesChange = (
 		changedValues: TodoPROTOTYPE,
@@ -35,12 +46,6 @@ function TodoForm({
 			...allValues,
 			...changedValues,
 		});
-		console.log("Changed Values:", changedValues);
-		console.log("New Todo", form.getFieldsValue());
-	};
-
-	const cleanForm = () => {
-		form.resetFields();
 	};
 
 	const onFinish = (values: TodoPROTOTYPE) => {
@@ -48,8 +53,10 @@ function TodoForm({
 			addTodo(values);
 		} else {
 			updateTodo(values);
+			setEditMode(false);
 		}
-		cleanForm();
+		form.resetFields();
+		setEditMode(false);
 	};
 
 	return (
@@ -246,9 +253,9 @@ function TodoForm({
 								<Button
 									danger
 									className="font-Inter active:scale-110 hover:bg-red-100  hover:drop-shadow-xl hover:shadow-red-300 w-32 h-10 rounded-xl active:bg-red-200"
-									onClick={cleanForm}
+									onClick={handleUndo}
 								>
-									Limpiar
+									{editMode ? "Cancelar" : "Limpiar"}
 								</Button>
 							</Form.Item>
 						</div>
