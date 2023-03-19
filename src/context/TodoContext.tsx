@@ -12,6 +12,15 @@ export interface TodoPROTOTYPE {
 	stakeholders: number;
 }
 
+export type Action = {
+	type: string;
+	payload: TodoPROTOTYPE;
+};
+export type State = {
+	todos: TodoPROTOTYPE[];
+	setTodos: React.Dispatch<React.SetStateAction<TodoPROTOTYPE[]>>;
+};
+
 export const initialTodos: TodoPROTOTYPE[] = [
 	{
 		id: "asdasd",
@@ -70,29 +79,17 @@ export interface TodoContextProps {
 	setEditMode: (editMode: boolean) => void;
 	currentTodo: TodoPROTOTYPE | null;
 	setCurrentTodo: (todo: TodoPROTOTYPE) => void;
-	addTodo: (todo: TodoPROTOTYPE) => void;
-	updateTodo: (todoEdited: TodoPROTOTYPE) => void;
 	editTodo: (todoSelected: TodoPROTOTYPE) => void;
-	deleteTodo: (id: string) => void;
-	finishTodo: (id: string) => void;
 }
 
 export const TodoContext = createContext<TodoContextProps>({
-	todos: [],
-	addTodo: () => {},
-	updateTodo: () => {},
-	deleteTodo: () => {},
+	todos: initialTodos,
+	setTodos: () => {},
 	editMode: false,
-	currentTodo: null,
 	setEditMode: () => {},
+	currentTodo: null,
+	setCurrentTodo: () => {},
 	editTodo: () => {},
-	finishTodo: () => {},
-	setCurrentTodo(todo) {
-		this.currentTodo = todo;
-	},
-	setTodos(todos) {
-		this.todos = todos;
-	},
 });
 
 export const useTodoContext = () => useContext(TodoContext);

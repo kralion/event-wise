@@ -15,7 +15,7 @@ const timeFormat = "HH:mm";
 const dateFormat = "YYYY-MM-DD";
 
 function TodoForm() {
-	const { addTodo, updateTodo, currentTodo } = useTodo();
+	const { handleAddTodo, handleUpdateTodo, currentTodo } = useTodo();
 	const { editMode, setEditMode } = useTodoContext();
 	const [form] = Form.useForm();
 
@@ -50,9 +50,9 @@ function TodoForm() {
 
 	const onFinish = (values: TodoPROTOTYPE) => {
 		if (currentTodo) {
-			addTodo(values);
+			handleAddTodo(values);
 		} else {
-			updateTodo(values);
+			handleUpdateTodo(values);
 			setEditMode(false);
 		}
 		form.resetFields();
