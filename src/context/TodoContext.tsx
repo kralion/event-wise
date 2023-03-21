@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { nanoid } from "nanoid";
 
 export interface TodoPROTOTYPE {
 	id: string;
@@ -8,7 +9,7 @@ export interface TodoPROTOTYPE {
 	date: string;
 	duration: string;
 	isFinished: boolean;
-	location: string;
+	category: string;
 	stakeholders: number;
 }
 
@@ -23,19 +24,19 @@ export type State = {
 
 export const initialTodos: TodoPROTOTYPE[] = [
 	{
-		id: "asdasd",
+		id: nanoid(),
 		title: "Meet with John Doe",
 		description:
 			"Work with Jhon Doe, to discuss the new project details and features to be implemented",
 		priority: "baja",
 		date: "2021-08-01",
 		duration: "10:00 - 11:00",
-		location: "Calle 1",
+		category: "personal",
 		isFinished: false,
 		stakeholders: 3,
 	},
 	{
-		id: "asdaasdasd",
+		id: nanoid(),
 		title: "Meet with John Doe",
 		description:
 			"Work with Jhon Doe, to discuss the new project details and features to be implemented",
@@ -43,11 +44,11 @@ export const initialTodos: TodoPROTOTYPE[] = [
 		date: "2021-08-01",
 		duration: "10:00 - 11:00",
 		isFinished: false,
-		location: "Calle 1",
+		category: "trabajo",
 		stakeholders: 3,
 	},
 	{
-		id: "asdasasdasd",
+		id: nanoid(),
 		title: "Meet with John Doe",
 		description:
 			"Work with Jhon Doe, to discuss the new project details and features to be implemented",
@@ -55,11 +56,11 @@ export const initialTodos: TodoPROTOTYPE[] = [
 		date: "2021-08-01",
 		duration: "10:00 - 11:00",
 		isFinished: false,
-		location: "Calle 1",
+		category: "trabajo",
 		stakeholders: 3,
 	},
 	{
-		id: "asdaasssssd",
+		id: nanoid(),
 		title: "Meet with John Doe",
 		description:
 			"Work with Jhon Doe, to discuss the new project details and features to be implemented",
@@ -67,7 +68,7 @@ export const initialTodos: TodoPROTOTYPE[] = [
 		date: "2021-08-01",
 		duration: "10:00 - 11:00",
 		isFinished: false,
-		location: "Calle 1",
+		category: "social",
 		stakeholders: 3,
 	},
 ];

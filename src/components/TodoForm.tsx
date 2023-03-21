@@ -19,6 +19,9 @@ function TodoForm() {
 	const { editMode, setEditMode } = useTodoContext();
 	const [form] = Form.useForm();
 
+	const datePickerStyle = {
+		backgroundColor: "blue",
+	};
 	useEffect(() => {
 		if (currentTodo) {
 			form.setFieldsValue({
@@ -144,95 +147,65 @@ function TodoForm() {
 								className="pl-10 w-56 font-Inter rounded-lg"
 							/>
 						</Form.Item>
-						<Form.Item name="location" label="Ubicación">
+						<Form.Item name="category" label="Categoría">
 							<Cascader
 								className="font-Inter"
 								options={[
 									{
-										key: "001",
-										value: "lima",
-										label: "Lima",
+										value: "personal",
+										label: "Personal",
 										children: [
 											{
-												key: "001-001",
-												value: "san borja",
-												label: "San Borja",
+												value: "hábitos",
+												label: "Hábitos",
 											},
 											{
-												key: "001-002",
-												value: "san isidro",
-												label: "San Isidro",
+												value: "estudio",
+												label: "Estudio",
 											},
 											{
-												key: "001-003",
-												value: "miraflores",
-												label: "Miraflores",
-											},
-											{
-												key: "001-004",
-												value: "san miguel",
-												label: "San Miguel",
-											},
-											{
-												key: "001-005",
-												value: "san juan de lurigancho",
-												label: "San Juan de Lurigancho",
+												value: "hobby",
+												label: "Hobby",
 											},
 										],
 									},
 									{
-										key: "002",
-										value: "arequipa",
-										label: "Arequipa",
+										value: "trabajo",
+										label: "Trabajo",
+									},
+									{
+										value: "familiar",
+										label: "Familiar",
+									},
+									{
+										value: "salud",
+										label: "Salud",
+									},
+									{
+										value: "finanzas",
+										label: "Finanzas",
+									},
+									{
+										value: "social",
+										label: "Social",
 										children: [
 											{
-												key: "002-001",
-												value: "arequipa",
-												label: "Arequipa",
+												value: "cumpleaños",
+												label: "Cumpleaños",
 											},
 											{
-												key: "002-002",
-												value: "camana",
-												label: "Camana",
+												value: "reunion",
+												label: "Reunion",
 											},
 											{
-												key: "002-003",
-												value: "caylloma",
-												label: "Caylloma",
-											},
-											{
-												key: "002-004",
-												value: "caraveli",
-												label: "Caraveli",
+												value: "viaje",
+												label: "Viaje",
 											},
 										],
 									},
 									{
-										key: "003",
-										value: "junin",
-										label: "Junin",
-										children: [
-											{
-												key: "003-001",
-												value: "huancayo",
-												label: "Huancayo",
-											},
-											{
-												key: "003-002",
-												value: "chilca",
-												label: "Chilca",
-											},
-											{
-												key: "003-003",
-												value: "san carlos",
-												label: "San Carlos",
-											},
-											{
-												key: "003-004",
-												value: "el tambo",
-												label: "El Tambo",
-											},
-										],
+										value: "otros",
+										label: "Otros",
 									},
 								]}
 							/>

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@material-tailwind/react": "^1.4.2",
     "animate.css": "^4.1.1",
     "antd": "^5.1.6",
     "nano-id": "^1.1.0",
