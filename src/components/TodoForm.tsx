@@ -1,5 +1,6 @@
-import { TodoPROTOTYPE, useTodoContext } from "../context/TodoContext";
-import useTodo from "../hooks/useTodo";
+import { useTodoContext } from "../context/TodoContext";
+import { TodoPROTOTYPE } from "../interfaces/interfaces";
+import todoReducer from "../context/todoReducer";
 import {
 	Form,
 	Input,
@@ -11,17 +12,16 @@ import {
 	TimePicker,
 } from "antd";
 import { useEffect } from "react";
+import { categories } from "../data/categories";
 const timeFormat = "HH:mm";
 const dateFormat = "YYYY-MM-DD";
 
 function TodoForm() {
-	const { handleAddTodo, handleUpdateTodo, currentTodo } = useTodo();
-	const { editMode, setEditMode } = useTodoContext();
+	const { currentTodo, setEditMode, editMode } = useTodoContext();
+	const { handleAddTodo, handleUpdateTodo } = todoReducer();
+
 	const [form] = Form.useForm();
 
-	const datePickerStyle = {
-		backgroundColor: "blue",
-	};
 	useEffect(() => {
 		if (currentTodo) {
 			form.setFieldsValue({
@@ -54,6 +54,7 @@ function TodoForm() {
 	const onFinish = (values: TodoPROTOTYPE) => {
 		if (currentTodo) {
 			handleAddTodo(values);
+			console.log("Received values of form: ", values);
 		} else {
 			handleUpdateTodo(values);
 			setEditMode(false);
@@ -148,67 +149,7 @@ function TodoForm() {
 							/>
 						</Form.Item>
 						<Form.Item name="category" label="Categoría">
-							<Cascader
-								className="font-Inter"
-								options={[
-									{
-										value: "personal",
-										label: "Personal",
-										children: [
-											{
-												value: "hábitos",
-												label: "Hábitos",
-											},
-											{
-												value: "estudio",
-												label: "Estudio",
-											},
-											{
-												value: "hobby",
-												label: "Hobby",
-											},
-										],
-									},
-									{
-										value: "trabajo",
-										label: "Trabajo",
-									},
-									{
-										value: "familiar",
-										label: "Familiar",
-									},
-									{
-										value: "salud",
-										label: "Salud",
-									},
-									{
-										value: "finanzas",
-										label: "Finanzas",
-									},
-									{
-										value: "social",
-										label: "Social",
-										children: [
-											{
-												value: "cumpleaños",
-												label: "Cumpleaños",
-											},
-											{
-												value: "reunion",
-												label: "Reunion",
-											},
-											{
-												value: "viaje",
-												label: "Viaje",
-											},
-										],
-									},
-									{
-										value: "otros",
-										label: "Otros",
-									},
-								]}
-							/>
+							<Cascader className="font-Inter" options={categories} />
 						</Form.Item>
 						<Form.Item name="stakeholders" label="Involucrados">
 							<InputNumber min={1} max={10} className="pl-5 rounded-lg" />

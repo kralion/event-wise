@@ -5,9 +5,9 @@ import {
 } from "@ant-design/icons";
 import { Card, Popover, Tag, Space, Avatar, Skeleton, Modal } from "antd";
 import infoIcon from "../assets/info-icon.png";
-
-import useTodo from "../hooks/useTodo";
-import { TodoPROTOTYPE } from "../context/TodoContext";
+import { useTodoContext } from "../context/TodoContext";
+import todoReducer from "../context/todoReducer";
+import { TodoPROTOTYPE } from "../interfaces/interfaces";
 import "animate.css";
 import { useState, useEffect } from "react";
 
@@ -17,7 +17,8 @@ const editPopover = <p>Editar To Do</p>;
 const finishedPopover = <p>Dar por Terminado</p>;
 
 function Todo({ todo }: { todo: TodoPROTOTYPE }) {
-	const { editTodo, handleDeleteTodo, handleFinishTodo } = useTodo();
+	const { editTodo } = useTodoContext();
+	const { handleDeleteTodo, handleFinishTodo } = todoReducer();
 	const { title, description, priority, duration, date, category } = todo;
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {

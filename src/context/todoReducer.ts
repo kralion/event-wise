@@ -1,13 +1,9 @@
-import {
-	useTodoContext,
-	TodoPROTOTYPE,
-	initialTodos,
-	State,
-	Action,
-} from "../context/TodoContext";
 import { useReducer } from "react";
+import { State, Action } from "../types/types";
+import { initialTodos } from "../data/initialTodos";
+import { TodoPROTOTYPE } from "../interfaces/interfaces";
 
-function useTodo() {
+function todoReducer() {
 	const initialState = {
 		todos: initialTodos,
 		setTodos: () => {},
@@ -56,16 +52,8 @@ function useTodo() {
 	const handleUpdateTodo = (updatedTodo: TodoPROTOTYPE) => {
 		dispatch({ type: "UPDATE_TODO", payload: updatedTodo });
 	};
-	const { setEditMode, setCurrentTodo, currentTodo } = useTodoContext();
-
-	const editTodo = (todoSelected: TodoPROTOTYPE) => {
-		setEditMode(true);
-		setCurrentTodo(todoSelected);
-	};
 
 	return {
-		editTodo,
-		currentTodo,
 		handleAddTodo,
 		handleDeleteTodo,
 		handleFinishTodo,
@@ -73,4 +61,4 @@ function useTodo() {
 	};
 }
 
-export default useTodo;
+export default todoReducer;

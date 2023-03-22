@@ -1,5 +1,6 @@
 import Todo from "./Todo";
-import { TodoPROTOTYPE, useTodoContext } from "../context/TodoContext";
+import { useTodoContext } from "../context/TodoContext";
+import { TodoPROTOTYPE } from "../interfaces/interfaces";
 
 function TodoList() {
 	const { todos } = useTodoContext();
