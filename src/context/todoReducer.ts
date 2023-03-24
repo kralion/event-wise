@@ -1,64 +1,33 @@
-import { useReducer } from "react";
-import { State, Action } from "../types/types";
-import { initialTodos } from "../data/initialTodos";
-import { TodoPROTOTYPE } from "../interfaces/interfaces";
+import { Action, State } from "@/types/types";
+import { nanoid } from "nanoid";
 
-function todoReducer() {
-	const initialState = {
-		todos: initialTodos,
-		setTodos: () => {},
-	};
-	const todosReducer = (state: State, action: Action) => {
-		switch (action.type) {
-			case "ADD_TODO":
-				return { ...state, todos: [...state.todos, action.payload] };
-			case "DELETE_TODO":
-				return {
-					...state,
-					todos: state.todos.filter((todo) => todo.id !== action.payload.id),
-				};
-			case "UPDATE_TODO":
-				return {
-					...state,
-					todos: state.todos.map((todo) =>
-						todo.id === action.payload.id ? action.payload : todo,
-					),
-				};
-			case "FINISH_TODO":
-				return {
-					...state,
-					todos: state.todos.map((todo) =>
-						todo.id === action.payload.id ? action.payload : todo,
-					),
-				};
+export const todoReducer = (state: State, action: Action) => {
+	switch (action.type) {
+		case "ADD_TODO":
+			return {
+				...state,
+				todos: [...state.todos, { ...action.payload, id: nanoid() }],
+			};
+		case "DELETE_TODO":
+			return {
+				...state,
+				todos: state.todos.filter((todo) => todo.id !== action.payload.id),
+			};
+		case "UPDATE_TODO":
+			return {
+				...state,
+				todos: state.todos.map((todo) =>
+					todo.id === action.payload.id ? action.payload : todo,
+				),
+			};
+		case "FINISH_TODO":
+			return {
+				...state,
+				todos: state.todos.filter((todo) => todo.id !== action.payload.id),
+				// finishedTodos: [...state.finishedTodos, action.payload],
+			};
 
-			default:
-				return state;
-		}
-	};
-	const [state, dispatch] = useReducer(todosReducer, initialState);
-
-	const handleAddTodo = (newTodo: TodoPROTOTYPE) => {
-		dispatch({ type: "ADD_TODO", payload: newTodo });
-	};
-
-	const handleDeleteTodo = (todo: TodoPROTOTYPE) => {
-		dispatch({ type: "DELETE_TODO", payload: todo });
-	};
-
-	const handleFinishTodo = (todo: TodoPROTOTYPE) => {
-		dispatch({ type: "FINISH_TODO", payload: todo });
-	};
-	const handleUpdateTodo = (updatedTodo: TodoPROTOTYPE) => {
-		dispatch({ type: "UPDATE_TODO", payload: updatedTodo });
-	};
-
-	return {
-		handleAddTodo,
-		handleDeleteTodo,
-		handleFinishTodo,
-		handleUpdateTodo,
-	};
-}
-
-export default todoReducer;
+		default:
+			return state;
+	}
+};

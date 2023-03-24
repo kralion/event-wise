@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
-import { TodoPROTOTYPE } from "../interfaces/interfaces";
-export const initialTodos: TodoPROTOTYPE[] = [
+import { Todo } from "../interfaces/interfaces";
+export const initialTodos: Todo[] = [
 	{
 		id: nanoid(),
 		title: "Meet with John Doe",

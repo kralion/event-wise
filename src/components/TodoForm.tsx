@@ -1,6 +1,5 @@
 import { useTodoContext } from "../context/TodoContext";
-import { TodoPROTOTYPE } from "../interfaces/interfaces";
-import todoReducer from "../context/todoReducer";
+import { Todo } from "../interfaces/interfaces";
 import {
 	Form,
 	Input,
@@ -17,8 +16,13 @@ const timeFormat = "HH:mm";
 const dateFormat = "YYYY-MM-DD";
 
 function TodoForm() {
-	const { currentTodo, setEditMode, editMode } = useTodoContext();
-	const { handleAddTodo, handleUpdateTodo } = todoReducer();
+	const {
+		editMode,
+		setEditMode,
+		currentTodo,
+		handleAddTodo,
+		handleUpdateTodo,
+	} = useTodoContext();
 
 	const [form] = Form.useForm();
 
@@ -41,17 +45,14 @@ function TodoForm() {
 		}
 	};
 
-	const handleValuesChange = (
-		changedValues: TodoPROTOTYPE,
-		allValues: TodoPROTOTYPE,
-	) => {
+	const handleValuesChange = (changedValues: Todo, allValues: Todo) => {
 		form.setFieldsValue({
 			...allValues,
 			...changedValues,
 		});
 	};
 
-	const onFinish = (values: TodoPROTOTYPE) => {
+	const onFinish = (values: Todo) => {
 		if (currentTodo) {
 			handleAddTodo(values);
 			console.log("Received values of form: ", values);
@@ -76,7 +77,7 @@ function TodoForm() {
 						layout="vertical"
 						style={{ width: 400 }}
 						onFinishFailed={(errorInfo) => {
-							console.log("Error en el ingreso de Datos:", errorInfo);
+							console.error("Error en el ingreso de Datos:", errorInfo);
 						}}
 						form={form}
 						className="font-SourceSansPro"

@@ -5,13 +5,12 @@ import { ConfigProvider, theme, Button, Spin } from "antd";
 import darkThemeIcon from "./assets/darkThemeIcon.png";
 import lightThemeIcon from "./assets/lightThemeIcon.png";
 import esES from "antd/es/locale/es_ES";
-import logo from "./../public/logo.svg";
+import logo from "/logo.svg";
 import { TodoProvider } from "./context/TodoContext";
 function App() {
 	const [isDarkMode, setIsDarkMode] = useState(false);
-	const handleThemeChange = () => {
-		setIsDarkMode((previousValue) => !previousValue);
-	};
+	const handleThemeChange = () => {};
+	setIsDarkMode((previousValue) => !previousValue);
 	const [loading, setLoading] = useState(true);
 
 	setTimeout(() => {
@@ -31,15 +30,15 @@ function App() {
 						<Spin size="large" />
 					</div>
 				) : (
-					<div className="App mb-28 bg-slate-200 dark:text-black  flex flex-col justify-center items-center">
-						<div className=" grid grid-cols-6 gap-3 items-center my-10 ">
-							<div className=" flex justify-center gap-3">
+					<div className="App mb-28   flex flex-col justify-center items-center">
+						<div className=" grid grid-cols-7 gap-3 items-center my-10 ">
+							<div className=" flex justify-center">
 								<img src={logo} alt="Logo" />
-								<p className="font-Inter pl-2 pt-1 font-bold text-2xl">
+								<p className="font-Inter pl-2 pt-1 drop-shadow-lg font-bold text-2xl">
 									Todo APP
 								</p>
 							</div>
-							<div className="col-end-13 ml-10 flex justify-center items-center">
+							<div className="col-end-10 ml-5 flex justify-center items-center">
 								<Button
 									className="active:bg-zinc-900 rounded-full px-1 w-auto h-auto"
 									onClick={handleThemeChange}

@@ -4,10 +4,9 @@ import {
 	DeleteOutlined,
 } from "@ant-design/icons";
 import { Card, Popover, Tag, Space, Avatar, Skeleton, Modal } from "antd";
-import infoIcon from "../assets/info-icon.png";
+import infoIcon from "../assets/info.svg";
 import { useTodoContext } from "../context/TodoContext";
-import todoReducer from "../context/todoReducer";
-import { TodoPROTOTYPE } from "../interfaces/interfaces";
+import { Todo } from "../interfaces/interfaces";
 import "animate.css";
 import { useState, useEffect } from "react";
 
@@ -16,9 +15,8 @@ const deletePopover = <p>Eliminar To Do</p>;
 const editPopover = <p>Editar To Do</p>;
 const finishedPopover = <p>Dar por Terminado</p>;
 
-function Todo({ todo }: { todo: TodoPROTOTYPE }) {
-	const { editTodo } = useTodoContext();
-	const { handleDeleteTodo, handleFinishTodo } = todoReducer();
+function TodoCard({ todo }: { todo: Todo }) {
+	const { editTodo, handleDeleteTodo, handleFinishTodo } = useTodoContext();
 	const { title, description, priority, duration, date, category } = todo;
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
@@ -68,14 +66,19 @@ function Todo({ todo }: { todo: TodoPROTOTYPE }) {
 				<Modal
 					title="TODO DETAILS"
 					maskStyle={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-					style={{ top: 50 }}
+					bodyStyle={{
+						borderRadius: 5,
+						padding: 5,
+						border: "1px solid #e8e8e8",
+					}}
+					style={{ top: 80 }}
 					open={isModalOpen}
 					onOk={handleOk}
 					onCancel={handleOk}
 					okButtonProps={{ style: { display: "none" } }}
 					cancelButtonProps={{ style: { display: "none" } }}
 				>
-					<div className="font-Source-Sans-Pro mt-8 text-neutral-500 flex gap-3">
+					<div className="font-Source-Sans-Pro py-5 text-neutral-500 flex gap-3">
 						<div className="mr-10">
 							<p className="font-Source-Sans-Pro text-neutral-500 py-2">
 								<span className="font-semibold font-Roboto px-5 ">
@@ -117,7 +120,13 @@ function Todo({ todo }: { todo: TodoPROTOTYPE }) {
 								</Tag>
 							</p>
 						</div>
-						<img src={infoIcon} className="drop-shadow-lg" alt="info" />
+						<img
+							src={infoIcon}
+							width={100}
+							height={100}
+							className="drop-shadow-lg ml-14"
+							alt="info"
+						/>
 					</div>
 				</Modal>
 				{loading ? (
@@ -167,4 +176,4 @@ function Todo({ todo }: { todo: TodoPROTOTYPE }) {
 	);
 }
 
-export default Todo;
+export default TodoCard;

@@ -1,35 +1,54 @@
 import { createContext, useContext, useState } from "react";
-import { TodoPROTOTYPE, TodoContextProps } from "../interfaces/interfaces";
+import { Todo, TodoContextProps } from "../interfaces/interfaces";
 import { initialTodos } from "../data/initialTodos";
 import { childrenProps } from "../types/types";
+import { useReducer } from "react";
+import { todoReducer } from "../context/todoReducer";
 
-export const TodoContext = createContext<TodoContextProps>({
+const INITIAL_STATE = {
 	todos: initialTodos,
-	setTodos: () => {},
-	editMode: false,
-	setEditMode: () => {},
-	currentTodo: null,
-	setCurrentTodo: () => {},
-	editTodo: () => {},
-});
+};
+
+export const TodoContext = createContext<TodoContextProps>(
+	{} as TodoContextProps,
+);
 
 export const TodoProvider = ({ children }: childrenProps) => {
-	const [todos, setTodos] = useState<TodoPROTOTYPE[]>(initialTodos);
 	const [editMode, setEditMode] = useState<boolean>(false);
-	const [currentTodo, setCurrentTodo] = useState<TodoPROTOTYPE | null>(null);
+	const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
+	const [todoState, dispatch] = useReducer(todoReducer, INITIAL_STATE);
+
+	const handleAddTodo = (newTodo: Todo) => {
+		dispatch({ type: "ADD_TODO", payload: newTodo });
+	};
+
+	const handleDeleteTodo = (todo: Todo) => {
+		dispatch({ type: "DELETE_TODO", payload: todo });
+	};
+
+	const handleFinishTodo = (todo: Todo) => {
+		dispatch({ type: "FINISH_TODO", payload: todo });
+	};
+	const editTodo = (todoSelected: Todo) => {
+		setCurrentTodo(todoSelected);
+		setEditMode(true);
+	};
+	const handleUpdateTodo = (updatedTodo: Todo) => {
+		dispatch({ type: "UPDATE_TODO", payload: updatedTodo });
+	};
 	return (
 		<TodoContext.Provider
 			value={{
-				todos,
-				setTodos,
+				todos: todoState.todos,
 				editMode,
 				setEditMode,
 				currentTodo,
 				setCurrentTodo,
-				editTodo: (todoSelected: TodoPROTOTYPE) => {
-					setCurrentTodo(todoSelected);
-					setEditMode(true);
-				},
+				editTodo,
+				handleAddTodo,
+				handleDeleteTodo,
+				handleFinishTodo,
+				handleUpdateTodo,
 			}}
 		>
 			{children}
