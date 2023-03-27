@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { Todo, TodoContextProps } from "../interfaces/interfaces";
 import { initialTodos } from "../data/initialTodos";
 import { childrenProps } from "../types/types";
@@ -9,14 +9,32 @@ const INITIAL_STATE = {
 	todos: initialTodos,
 };
 
-export const TodoContext = createContext<TodoContextProps>(
-	{} as TodoContextProps,
-);
+export const TodoContext = createContext<TodoContextProps>({
+	todos: [],
+	editMode: false,
+	setEditMode: () => {},
+	currentTodo: null,
+	setCurrentTodo: () => {},
+	handleAddTodo: () => {},
+	handleDeleteTodo: () => {},
+	handleFinishTodo: () => {},
+	editTodo: () => {},
+	handleUpdateTodo: () => {},
+});
 
 export const TodoProvider = ({ children }: childrenProps) => {
 	const [editMode, setEditMode] = useState<boolean>(false);
 	const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
-	const [todoState, dispatch] = useReducer(todoReducer, INITIAL_STATE);
+	const [todoState, dispatch] = useReducer(
+		todoReducer,
+		INITIAL_STATE /* () => {
+		const localData = localStorage.getItem("todos");
+		return localData ? JSON.parse(localData) : INITIAL_STATE; */,
+	);
+
+	useEffect(() => {
+		localStorage.setItem("todos", JSON.stringify(todoState.todos));
+	}, [todoState.todos]);
 
 	const handleAddTodo = (newTodo: Todo) => {
 		dispatch({ type: "ADD_TODO", payload: newTodo });

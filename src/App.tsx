@@ -8,10 +8,11 @@ import esES from "antd/es/locale/es_ES";
 import logo from "/logo.svg";
 import { TodoProvider } from "./context/TodoContext";
 function App() {
-	const [isDarkMode, setIsDarkMode] = useState(false);
-	const handleThemeChange = () => {};
-	setIsDarkMode((previousValue) => !previousValue);
 	const [loading, setLoading] = useState(true);
+	const [isDarkMode, setIsDarkMode] = useState(false);
+	const handleThemeChange = () => {
+		setIsDarkMode((previousValue) => !previousValue);
+	};
 
 	setTimeout(() => {
 		setLoading(false);

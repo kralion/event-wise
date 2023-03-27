@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { useEffect } from "react";
 import { categories } from "../data/categories";
+import { nanoid } from "nanoid";
 const timeFormat = "HH:mm";
 const dateFormat = "YYYY-MM-DD";
 
@@ -31,6 +32,9 @@ function TodoForm() {
 			form.setFieldsValue({
 				...currentTodo,
 			});
+		} else {
+			form.resetFields();
+			setEditMode(false);
 		}
 	}, [currentTodo, form]);
 
@@ -53,9 +57,9 @@ function TodoForm() {
 	};
 
 	const onFinish = (values: Todo) => {
-		if (currentTodo) {
+		values.id = nanoid();
+		if (!currentTodo) {
 			handleAddTodo(values);
-			console.log("Received values of form: ", values);
 		} else {
 			handleUpdateTodo(values);
 			setEditMode(false);
@@ -82,9 +86,7 @@ function TodoForm() {
 						form={form}
 						className="font-SourceSansPro"
 						onFinish={onFinish}
-						onValuesChange={(changedValues, allValues) =>
-							handleValuesChange(changedValues, allValues)
-						}
+						onValuesChange={handleValuesChange}
 					>
 						<Form.Item
 							rules={[

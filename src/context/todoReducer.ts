@@ -1,12 +1,11 @@
 import { Action, State } from "@/types/types";
-import { nanoid } from "nanoid";
 
 export const todoReducer = (state: State, action: Action) => {
 	switch (action.type) {
 		case "ADD_TODO":
 			return {
 				...state,
-				todos: [...state.todos, { ...action.payload, id: nanoid() }],
+				todos: [...state.todos, { ...action.payload }],
 			};
 		case "DELETE_TODO":
 			return {

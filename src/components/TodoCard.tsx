@@ -6,14 +6,26 @@ import {
 import { Card, Popover, Tag, Space, Avatar, Skeleton, Modal } from "antd";
 import infoIcon from "../assets/info.svg";
 import { useTodoContext } from "../context/TodoContext";
+import moment from "moment";
+import "moment/locale/es";
 import { Todo } from "../interfaces/interfaces";
 import "animate.css";
 import { useState, useEffect } from "react";
 
+moment.locale("es");
 const { Meta } = Card;
 const deletePopover = <p>Eliminar To Do</p>;
 const editPopover = <p>Editar To Do</p>;
 const finishedPopover = <p>Dar por Terminado</p>;
+const formatedDate = (date: string) =>
+	moment(date).format("dddd-DD   MMMM-YYYY").split("-").join("  -  ");
+const formatedDuration = (duration: number) => {
+	if (duration < 60) {
+		return `${duration} min`;
+	} else {
+		return `${duration / 60} hrs`;
+	}
+};
 
 function TodoCard({ todo }: { todo: Todo }) {
 	const { editTodo, handleDeleteTodo, handleFinishTodo } = useTodoContext();
@@ -44,7 +56,7 @@ function TodoCard({ todo }: { todo: Todo }) {
 						<DeleteOutlined
 							className="active:opacity-50"
 							onClick={() => handleDeleteTodo(todo)}
-							key="setting"
+							key="delete"
 						/>
 					</Popover>,
 					<Popover placement="bottom" content={editPopover}>
@@ -58,7 +70,7 @@ function TodoCard({ todo }: { todo: Todo }) {
 						<CheckCircleOutlined
 							className="active:opacity-50"
 							onClick={() => handleFinishTodo(todo)}
-							key="finished"
+							key="finish"
 						/>
 					</Popover>,
 				]}
@@ -79,7 +91,7 @@ function TodoCard({ todo }: { todo: Todo }) {
 					cancelButtonProps={{ style: { display: "none" } }}
 				>
 					<div className="font-Source-Sans-Pro py-5 text-neutral-500 flex gap-3">
-						<div className="mr-10">
+						<div className="mr-2">
 							<p className="font-Source-Sans-Pro text-neutral-500 py-2">
 								<span className="font-semibold font-Roboto px-5 ">
 									Titulo :{" "}
@@ -90,7 +102,7 @@ function TodoCard({ todo }: { todo: Todo }) {
 								<span className="font-semibold font-Roboto px-5 ">
 									Programado para el :{" "}
 								</span>
-								{String(date)}
+								{formatedDate(date)}
 							</p>
 							<p className="font-Source-Sans-Pro text-neutral-500 py-2">
 								<span className="font-semibold font-Roboto px-5 ">
@@ -120,13 +132,6 @@ function TodoCard({ todo }: { todo: Todo }) {
 								</Tag>
 							</p>
 						</div>
-						<img
-							src={infoIcon}
-							width={100}
-							height={100}
-							className="drop-shadow-lg ml-14"
-							alt="info"
-						/>
 					</div>
 				</Modal>
 				{loading ? (
