@@ -2,9 +2,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { Todo, TodoContextProps } from "../interfaces/interfaces";
 import { initialTodos } from "../data/initialTodos";
 import { childrenProps } from "../types/types";
-import { useReducer } from "react";
 import { todoReducer } from "../context/todoReducer";
-
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useReducer } from "react";
 const INITIAL_STATE = {
 	todos: initialTodos,
 };
@@ -25,17 +25,14 @@ export const TodoContext = createContext<TodoContextProps>({
 export const TodoProvider = ({ children }: childrenProps) => {
 	const [editMode, setEditMode] = useState<boolean>(false);
 	const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
-	const [todoState, dispatch] = useReducer(
+	const [todoState, dispatch] = useReducer(todoReducer, INITIAL_STATE);
+
+	/* const [todoState, dispatch] = useLocalStorage(
+		"todos",
+		INITIAL_STATE,
 		todoReducer,
-		INITIAL_STATE /* () => {
-		const localData = localStorage.getItem("todos");
-		return localData ? JSON.parse(localData) : INITIAL_STATE; */,
 	);
-
-	useEffect(() => {
-		localStorage.setItem("todos", JSON.stringify(todoState.todos));
-	}, [todoState.todos]);
-
+ */
 	const handleAddTodo = (newTodo: Todo) => {
 		dispatch({ type: "ADD_TODO", payload: newTodo });
 	};
@@ -74,4 +71,10 @@ export const TodoProvider = ({ children }: childrenProps) => {
 	);
 };
 
-export const useTodoContext = () => useContext(TodoContext);
+export const useTodoContext = () => {
+	const context = useContext(TodoContext);
+	if (!context) {
+		throw new Error("useTodoContext must be used within a TodoProvider");
+	}
+	return context;
+};

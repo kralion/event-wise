@@ -1,4 +1,4 @@
-import { Action, State } from "@/types/types";
+import { Action, State } from "../types/types";
 
 export const todoReducer = (state: State, action: Action) => {
 	switch (action.type) {
@@ -7,6 +7,7 @@ export const todoReducer = (state: State, action: Action) => {
 				...state,
 				todos: [...state.todos, { ...action.payload }],
 			};
+
 		case "DELETE_TODO":
 			return {
 				...state,
@@ -19,6 +20,7 @@ export const todoReducer = (state: State, action: Action) => {
 					todo.id === action.payload.id ? action.payload : todo,
 				),
 			};
+
 		case "FINISH_TODO":
 			return {
 				...state,

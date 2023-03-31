@@ -23,30 +23,34 @@ function TodoForm() {
 		currentTodo,
 		handleAddTodo,
 		handleUpdateTodo,
+		todos,
 	} = useTodoContext();
 
 	const [form] = Form.useForm();
 
 	useEffect(() => {
-		if (currentTodo) {
+		if (currentTodo !== null && currentTodo !== undefined) {
 			form.setFieldsValue({
 				...currentTodo,
 			});
-		} else {
-			form.resetFields();
-			setEditMode(false);
 		}
+		console.log("Todos:", todos);
+		console.log("Current:", currentTodo);
+		return () => {
+			form.resetFields();
+		};
 	}, [currentTodo, form]);
 
 	const handleUndo = () => {
-		if (currentTodo) {
+		if (!currentTodo) {
+			form.resetFields();
+			setEditMode(false);
+		} else {
 			form.setFieldsValue({
 				...currentTodo,
 			});
-		} else {
-			form.resetFields();
-			setEditMode(false);
 		}
+		setEditMode(false);
 	};
 
 	const handleValuesChange = (changedValues: Todo, allValues: Todo) => {
@@ -57,15 +61,13 @@ function TodoForm() {
 	};
 
 	const onFinish = (values: Todo) => {
-		values.id = nanoid();
 		if (!currentTodo) {
+			values.id = nanoid();
 			handleAddTodo(values);
 		} else {
 			handleUpdateTodo(values);
-			setEditMode(false);
 		}
 		form.resetFields();
-		setEditMode(false);
 	};
 
 	return (
@@ -148,6 +150,8 @@ function TodoForm() {
 								placeholder={["Inicio", "Fin"]}
 								minuteStep={15}
 								format={timeFormat}
+								separator=" - "
+								allowClear={true}
 								className="pl-10 w-56 font-Inter rounded-lg"
 							/>
 						</Form.Item>

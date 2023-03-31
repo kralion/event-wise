@@ -4,7 +4,6 @@ import {
 	DeleteOutlined,
 } from "@ant-design/icons";
 import { Card, Popover, Tag, Space, Avatar, Skeleton, Modal } from "antd";
-import infoIcon from "../assets/info.svg";
 import { useTodoContext } from "../context/TodoContext";
 import moment from "moment";
 import "moment/locale/es";
@@ -21,9 +20,9 @@ const formatedDate = (date: string) =>
 	moment(date).format("dddd-DD   MMMM-YYYY").split("-").join("  -  ");
 const formatedDuration = (duration: number) => {
 	if (duration < 60) {
-		return `${duration} min`;
+		return `${duration} minutos`;
 	} else {
-		return `${duration / 60} hrs`;
+		return `${duration / 60} horas`;
 	}
 };
 
@@ -40,8 +39,13 @@ function TodoCard({ todo }: { todo: Todo }) {
 	const showModal = () => {
 		setIsModalOpen(true);
 	};
+
+	const getInfo = () => {};
+
 	const handleOk = () => {
 		setIsModalOpen(false);
+
+		console.log(duration);
 	};
 
 	return (
