@@ -23,34 +23,24 @@ function TodoForm() {
 		currentTodo,
 		handleAddTodo,
 		handleUpdateTodo,
-		todos,
 	} = useTodoContext();
 
 	const [form] = Form.useForm();
 
 	useEffect(() => {
-		if (currentTodo !== null && currentTodo !== undefined) {
+		if (currentTodo) {
 			form.setFieldsValue({
 				...currentTodo,
 			});
-		}
-		console.log("Todos:", todos);
-		console.log("Current:", currentTodo);
-		return () => {
-			form.resetFields();
-		};
-	}, [currentTodo, form]);
+		} else form.resetFields();
+	}, [currentTodo]);
 
 	const handleUndo = () => {
-		if (!currentTodo) {
-			form.resetFields();
+		if (currentTodo) {
 			setEditMode(false);
 		} else {
-			form.setFieldsValue({
-				...currentTodo,
-			});
+			form.resetFields();
 		}
-		setEditMode(false);
 	};
 
 	const handleValuesChange = (changedValues: Todo, allValues: Todo) => {
@@ -61,11 +51,12 @@ function TodoForm() {
 	};
 
 	const onFinish = (values: Todo) => {
-		if (!currentTodo) {
+		if (currentTodo) {
+			handleUpdateTodo(values);
+			setEditMode(false);
+		} else {
 			values.id = nanoid();
 			handleAddTodo(values);
-		} else {
-			handleUpdateTodo(values);
 		}
 		form.resetFields();
 	};
@@ -76,7 +67,7 @@ function TodoForm() {
 				<h1 className="text-xl font-SourceSansPro font-semibold pb-5">
 					{editMode ? "Editar Tarea" : "Nueva Tarea"}
 				</h1>
-				<div>
+				<section className="todo-form" id="todo-form">
 					<Form
 						labelCol={{ span: 7 }}
 						wrapperCol={{ span: 24 }}
@@ -181,7 +172,7 @@ function TodoForm() {
 							</Form.Item>
 						</div>
 					</Form>
-				</div>
+				</section>
 			</div>
 		</div>
 	);

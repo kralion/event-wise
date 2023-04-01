@@ -1,5 +1,4 @@
 import { Action, State } from "../types/types";
-
 export const todoReducer = (state: State, action: Action) => {
 	switch (action.type) {
 		case "ADD_TODO":

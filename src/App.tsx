@@ -32,7 +32,7 @@ function App() {
 					</div>
 				) : (
 					<div className="App mb-28   flex flex-col justify-center items-center">
-						<div className=" grid grid-cols-7 gap-3 items-center my-10 ">
+						<header className=" grid grid-cols-7 gap-3 items-center my-10 ">
 							<div className=" flex justify-center">
 								<img src={logo} alt="Logo" />
 								<p className="font-Inter pl-2 pt-1 drop-shadow-lg font-bold text-2xl">
@@ -62,12 +62,12 @@ function App() {
 									)}
 								</Button>
 							</div>
-						</div>
+						</header>
 
-						<div className="App flex gap-5">
+						<section id="frames" className="App flex gap-5">
 							<TodoForm />
 							<TodoList />
-						</div>
+						</section>
 					</div>
 				)}
 			</TodoProvider>

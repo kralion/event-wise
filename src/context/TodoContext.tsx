@@ -2,8 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { Todo, TodoContextProps } from "../interfaces/interfaces";
 import { initialTodos } from "../data/initialTodos";
 import { childrenProps } from "../types/types";
-import { todoReducer } from "../context/todoReducer";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { todoReducer } from "../reducers/todoReducer";
 import { useReducer } from "react";
 const INITIAL_STATE = {
 	todos: initialTodos,
@@ -22,17 +21,18 @@ export const TodoContext = createContext<TodoContextProps>({
 	handleUpdateTodo: () => {},
 });
 
+const localTodos = localStorage.getItem("todos");
+if (localTodos) {
+	INITIAL_STATE.todos = JSON.parse(localTodos);
+}
 export const TodoProvider = ({ children }: childrenProps) => {
 	const [editMode, setEditMode] = useState<boolean>(false);
 	const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
 	const [todoState, dispatch] = useReducer(todoReducer, INITIAL_STATE);
+	useEffect(() => {
+		localStorage.setItem("todos", JSON.stringify(todoState.todos));
+	}, [todoState.todos]);
 
-	/* const [todoState, dispatch] = useLocalStorage(
-		"todos",
-		INITIAL_STATE,
-		todoReducer,
-	);
- */
 	const handleAddTodo = (newTodo: Todo) => {
 		dispatch({ type: "ADD_TODO", payload: newTodo });
 	};
