@@ -4,6 +4,7 @@ import { initialTodos } from "../data/initialTodos";
 import { childrenProps } from "../types/types";
 import { todoReducer } from "../reducers/todoReducer";
 import { useReducer } from "react";
+import { nanoid } from "nanoid";
 const INITIAL_STATE = {
 	todos: initialTodos,
 };
@@ -34,7 +35,7 @@ export const TodoProvider = ({ children }: childrenProps) => {
 	}, [todoState.todos]);
 
 	const handleAddTodo = (newTodo: Todo) => {
-		dispatch({ type: "ADD_TODO", payload: newTodo });
+		dispatch({ type: "ADD_TODO", payload: { ...newTodo, id: nanoid() } });
 	};
 
 	const handleDeleteTodo = (todo: Todo) => {

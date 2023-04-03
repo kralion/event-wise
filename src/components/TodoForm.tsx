@@ -10,9 +10,9 @@ import {
 	InputNumber,
 	TimePicker,
 } from "antd";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import type { InputRef } from "antd";
 import { categories } from "../data/categories";
-import { nanoid } from "nanoid";
 const timeFormat = "HH:mm";
 const dateFormat = "YYYY-MM-DD";
 
@@ -26,6 +26,7 @@ function TodoForm() {
 	} = useTodoContext();
 
 	const [form] = Form.useForm();
+	const inputRef = useRef<InputRef>(null);
 
 	useEffect(() => {
 		if (currentTodo) {
@@ -55,10 +56,10 @@ function TodoForm() {
 			handleUpdateTodo(values);
 			setEditMode(false);
 		} else {
-			values.id = nanoid();
 			handleAddTodo(values);
 		}
 		form.resetFields();
+		inputRef.current?.focus();
 	};
 
 	return (
@@ -92,7 +93,11 @@ function TodoForm() {
 							name="title"
 							label="Título"
 						>
-							<Input name="title" className="font-Inter rounded-xl" />
+							<Input
+								name="title"
+								ref={inputRef}
+								className="font-Inter rounded-xl"
+							/>
 						</Form.Item>
 						<Form.Item name="description" label="Descripcion">
 							<Input.TextArea rows={4} className="font-Inter rounded-xl" />
