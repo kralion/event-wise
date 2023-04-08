@@ -1,6 +1,7 @@
 import TodoCard from "./TodoCard";
 import { useTodoContext } from "../context/TodoContext";
 import { Todo } from "../interfaces/interfaces";
+import "animate.css";
 
 function TodoList() {
 	const { todos } = useTodoContext();
@@ -11,7 +12,7 @@ function TodoList() {
 			className="w-auto border-t bg-white/50 rounded-xl px-5 py-7 shadow-2xl"
 		>
 			{todos.length === 0 ? (
-				<div className=" flex lg:flex-col py-3 lg:w-[644px] text-center">
+				<div className="animate__animated animate__flipInX flex lg:flex-col py-3 lg:w-[644px] text-center">
 					<div className="mt-48">
 						<h1 className="text-2xl font-semibold">No hay tareas</h1>
 						<p className="text-gray-500">Agrega una tarea para comenzar</p>

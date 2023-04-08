@@ -67,7 +67,7 @@ function TodoForm() {
 			className="backdrop-blur  bg-white/50 shadow-2xl w-auto mx-3 border-t rounded-xl   pb-5"
 			id="todo-form"
 		>
-			<h1 className="lg:text-xl rounded-t-xl text-center py-2.5 bg-gray-100/70 text-md font-SourceSansPro font-semibold ">
+			<h1 className="lg:text-xl rounded-t-xl text-center py-2.5 bg-gray-100/80 text-md font-SourceSansPro font-semibold ">
 				{editMode ? "Editar Tarea" : "Nueva Tarea"}
 			</h1>
 			<div className="px-10 pt-10">
