@@ -31,15 +31,15 @@ function App() {
 						<Spin size="large" />
 					</div>
 				) : (
-					<div className="App mb-28   flex flex-col justify-center items-center">
-						<header className=" grid grid-cols-7 gap-3 items-center my-10 ">
+					<div className="App mb-28 flex flex-col justify-center items-center">
+						<header className=" grid lg:grid-cols-7 grid-cols-3 gap-3 lg:gap-5 items-center my-10 mx-3 ">
 							<div className=" flex justify-center">
 								<img src={logo} alt="Logo" />
-								<p className="font-Inter pl-2 pt-1 drop-shadow-lg font-bold text-2xl">
+								<p className="font-Inter pl-2  pt-1 drop-shadow-lg font-bold text-2xl">
 									Todo APP
 								</p>
 							</div>
-							<div className="col-end-10 ml-5 flex justify-center items-center">
+							<div className="lg:col-end-13 col-end-5 lg:ml-5 flex justify-center items-center">
 								<Button
 									className="active:bg-zinc-900 rounded-full px-1 w-auto h-auto"
 									onClick={handleThemeChange}
@@ -64,7 +64,10 @@ function App() {
 							</div>
 						</header>
 
-						<section id="frames" className="App flex gap-5">
+						<section
+							id="frames"
+							className="App lg:flex-row flex lg:gap-3 gap-10 flex-col"
+						>
 							<TodoForm />
 							<TodoList />
 						</section>

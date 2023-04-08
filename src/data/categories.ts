@@ -2,20 +2,6 @@ export const categories = [
 	{
 		value: "personal",
 		label: "Personal",
-		children: [
-			{
-				value: "hábitos",
-				label: "Hábitos",
-			},
-			{
-				value: "estudio",
-				label: "Estudio",
-			},
-			{
-				value: "hobby",
-				label: "Hobby",
-			},
-		],
 	},
 	{
 		value: "trabajo",
@@ -37,20 +23,6 @@ export const categories = [
 	{
 		value: "social",
 		label: "Social",
-		children: [
-			{
-				value: "cumpleaños",
-				label: "Cumpleaños",
-			},
-			{
-				value: "reunion",
-				label: "Reunion",
-			},
-			{
-				value: "viaje",
-				label: "Viaje",
-			},
-		],
 	},
 	{
 		value: "otros",

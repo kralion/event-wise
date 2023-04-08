@@ -65,14 +65,14 @@ function TodoForm() {
 	return (
 		<div>
 			<div className="backdrop-blur bg-white/50 shadow-2xl w-auto mx-3 border-t rounded-xl px-10 pt-10 pb-5">
-				<h1 className="text-xl font-SourceSansPro font-semibold pb-5">
+				<h1 className="lg:text-xl text-md font-SourceSansPro font-semibold pb-5">
 					{editMode ? "Editar Tarea" : "Nueva Tarea"}
 				</h1>
 				<section className="todo-form" id="todo-form">
 					<Form
 						labelCol={{ span: 7 }}
 						wrapperCol={{ span: 24 }}
-						layout="vertical"
+						layout="horizontal"
 						style={{ width: 400 }}
 						onFinishFailed={(errorInfo) => {
 							console.error("Error en el ingreso de Datos:", errorInfo);
