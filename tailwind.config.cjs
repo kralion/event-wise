@@ -7,6 +7,7 @@ module.exports = {
 				Roboto: ["Roboto", "sans-serif"],
 				Inter: ["Inter", "sans-serif"],
 				SourceSansPro: ["Source Sans Pro", "sans-serif"],
+				SecularOne: ["Secular One", "sans-serif"],
 			},
 			backgroundImage: {
 				waves: "url('/src/assets/waves.svg')",
