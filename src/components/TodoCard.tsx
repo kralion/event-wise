@@ -145,7 +145,7 @@ function TodoCard({ todo }: { todo: Todo }) {
 						/>
 					</Skeleton>
 				) : (
-					<div className="animate__animated animate__flipInX">
+					<div className="animate__animated animate__flipInX flex flex-col gap-5">
 						<button onClick={showModal}>
 							<Meta
 								className="text-left cursor-pointer"
@@ -155,19 +155,19 @@ function TodoCard({ todo }: { todo: Todo }) {
 						</button>
 
 						<Space size={[0, 8]} wrap>
-							<div className="flex gap-2">
+							<div className="flex gap-2 items-center">
 								<div className="mt-4">
-									<span className="mr-1 text-[13px] text-zinc-400 font-mono">
-										Priority:
+									<span className="mr-1 text-zinc-400 uppercase font-bold font-Roboto tracking-wide text-[10px]">
+										Priority :
 									</span>
 								</div>
 
 								<Tag
-									className="mr-[220px] mt-4 w-12 text-center"
+									className="mt-4 px-3 pb-0.5 w-auto text-center"
 									color={
 										priority === "low"
 											? "green"
-											: priority === "mid"
+											: priority === "high"
 											? "red"
 											: "gold"
 									}

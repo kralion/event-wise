@@ -13,15 +13,15 @@ function TodoList() {
 			className="w-auto border-t bg-white/50 rounded-xl px-5 py-7 shadow-2xl"
 		>
 			{todos.length === 0 ? (
-				<div className="animate__animated animate__flipInX flex lg:flex-col py-3 lg:w-[644px] text-center">
+				<div className="animate__animated animate__flipInX animate__delay-1s flex lg:flex-col py-3 lg:w-[644px] text-center">
 					<div className="mt-48 flex flex-col gap-5 items-center">
-						<img src={anyTaskIcon} width={100} alt="anytaskicon" />
+						<img src={anyTaskIcon} width={80} alt="anytaskicon" />
 						<div className="">
-							<h1 className="text-2xl font-semibold">
+							<h1 className="text-xl font-semibold">
 								You don't have any tasks
 							</h1>
-							<p className="text-gray-500">
-								Fill the form above to add a new task
+							<p className="text-sm text-gray-500">
+								Fill the form on the left to add a new task
 							</p>
 						</div>
 					</div>
