@@ -5,6 +5,7 @@ import { ConfigProvider, theme, Button, Spin } from "antd";
 import darkThemeIcon from "./assets/darkThemeIcon.png";
 import lightThemeIcon from "./assets/lightThemeIcon.png";
 import enEN from "antd/es/locale/en_US";
+import 
 // import esES from "antd/es/locale/es_ES";
 import logo from "./assets/logo.svg";
 

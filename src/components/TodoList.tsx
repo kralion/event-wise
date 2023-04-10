@@ -2,6 +2,7 @@ import TodoCard from "./TodoCard";
 import { useTodoContext } from "../context/TodoContext";
 import { Todo } from "../interfaces/interfaces";
 import "animate.css";
+import anyTaskIcon from "../assets/any-task-icon.png";
 
 function TodoList() {
 	const { todos } = useTodoContext();
@@ -13,11 +14,16 @@ function TodoList() {
 		>
 			{todos.length === 0 ? (
 				<div className="animate__animated animate__flipInX flex lg:flex-col py-3 lg:w-[644px] text-center">
-					<div className="mt-48">
-						<h1 className="text-2xl font-semibold">You don't have any tasks</h1>
-						<p className="text-gray-500">
-							Fill the form above to add a new task
-						</p>
+					<div className="mt-48 flex flex-col gap-5 items-center">
+						<img src={anyTaskIcon} width={100} alt="anytaskicon" />
+						<div className="">
+							<h1 className="text-2xl font-semibold">
+								You don't have any tasks
+							</h1>
+							<p className="text-gray-500">
+								Fill the form above to add a new task
+							</p>
+						</div>
 					</div>
 				</div>
 			) : (

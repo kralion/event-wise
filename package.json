@@ -12,6 +12,7 @@
     "@material-tailwind/react": "^1.4.2",
     "animate.css": "^4.1.1",
     "antd": "^5.1.6",
+    "aos": "^2.3.4",
     "moment": "^2.29.4",
     "nano-id": "^1.1.0",
     "nanoid": "^4.0.1",
