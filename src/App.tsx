@@ -4,7 +4,8 @@ import TodoForm from "./components/TodoForm";
 import { ConfigProvider, theme, Button, Spin } from "antd";
 import darkThemeIcon from "./assets/darkThemeIcon.png";
 import lightThemeIcon from "./assets/lightThemeIcon.png";
-import esES from "antd/es/locale/es_ES";
+import enEN from "antd/es/locale/en_US";
+// import esES from "antd/es/locale/es_ES";
 import logo from "./assets/logo.svg";
 
 import { TodoProvider } from "./context/TodoContext";
@@ -24,7 +25,7 @@ function App() {
 			theme={{
 				algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
 			}}
-			locale={esES}
+			locale={enEN}
 		>
 			<TodoProvider>
 				{loading ? (

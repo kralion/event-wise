@@ -6,7 +6,7 @@ export const initialTodos: Todo[] = [
 		title: "Meet with John Doe",
 		description:
 			"Work with Jhon Doe, to discuss the new project details and features to be implemented",
-		priority: "baja",
+		priority: "low",
 		date: "2021-15-01",
 		duration: "10:00 - 11:00",
 		category: "personal",
@@ -18,11 +18,11 @@ export const initialTodos: Todo[] = [
 		title: "See the new movie",
 		description:
 			"Go to the cinema to see the new movie with my friends, we will have a great time",
-		priority: "media",
+		priority: "mid",
 		date: "2021-08-01",
 		duration: "10:00 - 11:00",
 		isFinished: false,
-		category: "trabajo",
+		category: "job",
 		stakeholders: 3,
 	},
 	{
@@ -34,7 +34,7 @@ export const initialTodos: Todo[] = [
 		date: "2021-08-01",
 		duration: "10:00 - 11:00",
 		isFinished: false,
-		category: "otros",
+		category: "others",
 		stakeholders: 3,
 	},
 	{

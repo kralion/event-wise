@@ -4,8 +4,8 @@ export const categories = [
 		label: "Personal",
 	},
 	{
-		value: "trabajo",
-		label: "Trabajo",
+		value: "job",
+		label: "Job",
 	},
 
 	{
@@ -13,19 +13,19 @@ export const categories = [
 		label: "Familiar",
 	},
 	{
-		value: "salud",
-		label: "Salud",
+		value: "health",
+		label: "Health",
 	},
 	{
-		value: "finanzas",
-		label: "Finanzas",
+		value: "finances",
+		label: "Finances",
 	},
 	{
 		value: "social",
 		label: "Social",
 	},
 	{
-		value: "otros",
-		label: "Otros",
+		value: "others",
+		label: "Others",
 	},
 ];

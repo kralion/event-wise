@@ -68,7 +68,7 @@ function TodoForm() {
 			id="todo-form"
 		>
 			<h1 className="lg:text-xl rounded-t-xl text-center py-2.5 bg-gray-100/80 text-md font-SourceSansPro font-semibold ">
-				{editMode ? "Editar Tarea" : "Nueva Tarea"}
+				{editMode ? "Edit Task" : "New Task"}
 			</h1>
 			<div className="px-10 pt-10">
 				<Form
@@ -77,7 +77,7 @@ function TodoForm() {
 					layout="horizontal"
 					style={{ width: 400 }}
 					onFinishFailed={(errorInfo) => {
-						console.error("Error en el ingreso de Datos:", errorInfo);
+						console.error("Fill out form Error :", errorInfo);
 					}}
 					form={form}
 					className="font-SourceSansPro"
@@ -88,12 +88,12 @@ function TodoForm() {
 						rules={[
 							{
 								required: true,
-								message: "Por favor ingrese un titulo de la tarea",
+								message: "Input your title!",
 								pattern: new RegExp(/^[a-zA-Z0-9 ]+$/),
 							},
 						]}
 						name="title"
-						label="Título"
+						label="Title"
 					>
 						<Input
 							name="title"
@@ -101,19 +101,19 @@ function TodoForm() {
 							className="font-Inter rounded-xl"
 						/>
 					</Form.Item>
-					<Form.Item name="description" label="Descripcion">
+					<Form.Item name="description" label="Description">
 						<Input.TextArea rows={4} className="font-Inter rounded-xl" />
 					</Form.Item>
-					<Form.Item name="priority" label="Importancia">
+					<Form.Item name="priority" label="Priority">
 						<Select className="w-10 text-center font-Inter rounded-xl">
-							<Select.Option value="baja" className="font-Inter">
-								Baja
+							<Select.Option value="low" className="font-Inter">
+								Low
 							</Select.Option>
-							<Select.Option value="media" className="font-Inter">
-								Media
+							<Select.Option value="mid" className="font-Inter">
+								Mid
 							</Select.Option>
-							<Select.Option value="alta" className="font-Inter">
-								Alta
+							<Select.Option value="high" className="font-Inter">
+								High
 							</Select.Option>
 						</Select>
 					</Form.Item>
@@ -121,11 +121,11 @@ function TodoForm() {
 						rules={[
 							{
 								required: true,
-								message: "Por favor selecciona la fecha de la tarea",
+								message: "Select a date!",
 							},
 						]}
 						name="date"
-						label="Fecha"
+						label="Date"
 					>
 						<DatePicker
 							placeholder=""
@@ -137,15 +137,15 @@ function TodoForm() {
 						rules={[
 							{
 								required: true,
-								message: "Por favor selecciona una hora de inicio y fin",
+								message: "Please select an interval of time!",
 							},
 						]}
 						name="duration"
-						label="Duración"
+						label="Duration"
 					>
 						<TimePicker.RangePicker
 							use12Hours
-							placeholder={["Inicio", "Fin"]}
+							placeholder={["Start", "End"]}
 							minuteStep={15}
 							format={timeFormat}
 							separator=" - "
@@ -153,10 +153,10 @@ function TodoForm() {
 							className="pl-10 w-56 font-Inter rounded-lg"
 						/>
 					</Form.Item>
-					<Form.Item name="category" label="Categoría">
+					<Form.Item name="category" label="Category">
 						<Cascader className="font-Inter" options={categories} />
 					</Form.Item>
-					<Form.Item name="stakeholders" label="Involucrados">
+					<Form.Item name="stakeholders" label="Stakeholders">
 						<InputNumber min={1} max={10} className="pl-5 rounded-lg" />
 					</Form.Item>
 					<div className=" flex gap-24 mt-12 justify-center">
@@ -165,7 +165,7 @@ function TodoForm() {
 								htmlType="submit"
 								className="font-Inter text-slate-900 hover:bg-cyan-100 hover:drop-shadow-xl hover:shadow-cyan-300 w-32 h-10 rounded-xl active:bg-cyan-200 active:scale-110"
 							>
-								{editMode ? "Guardar" : "Agregar"}
+								{editMode ? "Save" : "Add"}
 							</Button>
 						</Form.Item>
 						<Form.Item>
@@ -174,7 +174,7 @@ function TodoForm() {
 								className="font-Inter active:scale-110 hover:bg-red-100  hover:drop-shadow-xl hover:shadow-red-300 w-32 h-10 rounded-xl active:bg-red-200"
 								onClick={handleUndo}
 							>
-								{editMode ? "Cancelar" : "Limpiar"}
+								{editMode ? "Cancel" : "Clean"}
 							</Button>
 						</Form.Item>
 					</div>

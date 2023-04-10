@@ -13,16 +13,16 @@ import { useState, useEffect } from "react";
 
 moment.locale("es");
 const { Meta } = Card;
-const deletePopover = <p>Eliminar To Do</p>;
-const editPopover = <p>Editar To Do</p>;
-const finishedPopover = <p>Dar por Terminado</p>;
+const deletePopover = <p>Delete</p>;
+const editPopover = <p>Edit</p>;
+const finishedPopover = <p>Finished</p>;
 const formatedDate = (date: string) =>
 	moment(date).format("dddd-DD   MMMM-YYYY").split("-").join("  -  ");
 const formatedDuration = (duration: number) => {
 	if (duration < 60) {
-		return `${duration} minutos`;
+		return `${duration} minutes`;
 	} else {
-		return `${duration / 60} horas`;
+		return `${duration / 60} hours`;
 	}
 };
 
@@ -39,8 +39,6 @@ function TodoCard({ todo }: { todo: Todo }) {
 	const showModal = () => {
 		setIsModalOpen(true);
 	};
-
-	const getInfo = () => {};
 
 	const handleOk = () => {
 		setIsModalOpen(false);
@@ -98,36 +96,36 @@ function TodoCard({ todo }: { todo: Todo }) {
 						<div className="mr-2">
 							<p className="font-Source-Sans-Pro text-neutral-500 py-2">
 								<span className="font-semibold font-Roboto px-5 ">
-									Titulo :{" "}
+									Title :{" "}
 								</span>
 								{todo.title}
 							</p>
 							<p className="font-Source-Sans-Pro text-neutral-500 py-2">
 								<span className="font-semibold font-Roboto px-5 ">
-									Programado para el :{" "}
+									Planned for :{" "}
 								</span>
 								{formatedDate(date)}
 							</p>
 							<p className="font-Source-Sans-Pro text-neutral-500 py-2">
 								<span className="font-semibold font-Roboto px-5 ">
-									Duracion estimada :
+									Estimated duration :
 								</span>
 								{String(duration)}
 							</p>
 							<p className="font-Source-Sans-Pro text-neutral-500 py-2">
 								<span className="font-semibold font-Roboto px-5 ">
-									Categorizado como :
+									Categorized as :
 								</span>
 								<Tag
 									className="px-3 py-0.5 w-auto text-center"
 									color={
-										category === "trabajo"
+										category === "job"
 											? "blue"
 											: category === "personal"
 											? "green"
-											: category === "estudio"
+											: category === "study"
 											? "red"
-											: category === "otro"
+											: category === "other"
 											? "gold"
 											: "purple"
 									}
@@ -160,16 +158,16 @@ function TodoCard({ todo }: { todo: Todo }) {
 							<div className="flex gap-2">
 								<div className="mt-4">
 									<span className="mr-1 text-[13px] text-zinc-400 font-mono">
-										Prioridad:
+										Priority:
 									</span>
 								</div>
 
 								<Tag
 									className="mr-[220px] mt-4 w-12 text-center"
 									color={
-										priority === "baja"
+										priority === "low"
 											? "green"
-											: priority === "alta"
+											: priority === "mid"
 											? "red"
 											: "gold"
 									}
