@@ -9,19 +9,29 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@material-tailwind/react": "^1.4.2",
+    "animate.css": "^4.1.1",
     "antd": "^5.1.6",
-    "dayjs": "^1.11.7",
+    "aos": "^2.3.4",
+    "moment": "^2.29.4",
+    "nano-id": "^1.1.0",
+    "nanoid": "^4.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sass": "^1.58.3"
   },
   "devDependencies": {
+    "@types/aos": "^3.0.4",
+    "@types/jest": "^29.5.0",
+    "@types/moment": "^2.13.0",
+    "@types/node": "^18.13.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.4",
-    "typescript": "^4.9.3",
+    "typescript": "^5.0.2",
     "vite": "^4.0.0"
   }
 }
