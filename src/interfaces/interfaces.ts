@@ -10,6 +10,12 @@ export interface Todo {
 	stakeholders: number;
 }
 
+export interface filterTag {
+	id: string;
+	label: string;
+	value: string;
+}
+
 export interface TodoContextProps {
 	todos: Todo[];
 	editMode: boolean;

@@ -3,6 +3,7 @@ import { useTodoContext } from "../context/TodoContext";
 import { Todo } from "../interfaces/interfaces";
 import "animate.css";
 import anyTaskIcon from "../assets/any-task-icon.png";
+import Filter from "./Filter";
 
 function TodoList() {
 	const { todos } = useTodoContext();
@@ -10,7 +11,7 @@ function TodoList() {
 	return (
 		<section
 			id="todos"
-			className="w-auto border-t bg-white/50 rounded-xl px-5 py-7 shadow-2xl"
+			className="w-auto border-t bg-white/50 rounded-xl px-5 pt-5 pb-7 shadow-2xl"
 		>
 			{todos.length === 0 ? (
 				<div className="animate__animated animate__flipInX animate__delay-1s flex lg:flex-col py-3 lg:w-[644px] text-center">
@@ -27,10 +28,13 @@ function TodoList() {
 					</div>
 				</div>
 			) : (
-				<div className=" grid lg:grid-cols-2 grid-col-1 justify-center  gap-5 mx-3">
-					{todos.map((todo: Todo) => (
-						<TodoCard key={todo.id} todo={todo} />
-					))}
+				<div className="">
+					<Filter />
+					<div className=" grid lg:grid-cols-2 grid-col-1 justify-center  gap-5 mx-3">
+						{todos.map((todo: Todo) => (
+							<TodoCard key={todo.id} todo={todo} />
+						))}
+					</div>
 				</div>
 			)}
 		</section>
