@@ -1,7 +1,8 @@
-import { Tag, Input, Select } from "antd";
+import { Tag, Input, Select, Space, Button } from "antd";
 import "animate.css";
 import { filterTags } from "./../data/filterTags.ts";
 import { filterTag } from "./../interfaces/interfaces";
+import { CloseCircleFilled } from "@ant-design/icons";
 
 function Filter() {
 	const deleteFilterTag = (filterTag: filterTag) => {
@@ -14,7 +15,7 @@ function Filter() {
 				<Select.Option value="categories">Categories</Select.Option>
 				<Select.Option value="stakeholders">Stakeholders</Select.Option>
 			</Select>
-			<Input placeholder="tags" />
+			<Input placeholder="tags" suffix={<CloseCircleFilled />} />
 		</div>
 	);
 }
