@@ -41,8 +41,8 @@ function App() {
 					</div>
 				) : (
 					<div className="App bg-neutral-100/50 h-100% pb-14 flex flex-col justify-center items-center">
-						{isLogin ? "Hello" : <Login setIsLogin={setIsLogin} />}
-						{/* <header
+						{/* {isLogin ? "Hello" : <Login setIsLogin={setIsLogin} />} */}
+						<header
 							data-aos="fade-in"
 							data-aos-delay="600"
 							data-aos-duration="1000"
@@ -88,7 +88,7 @@ function App() {
 						>
 							<TodoForm />
 							<TodoList />
-						</section> */}
+						</section>
 					</div>
 				)}
 			</TodoProvider>

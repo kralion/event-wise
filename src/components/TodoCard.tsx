@@ -50,27 +50,27 @@ function TodoCard({ todo }: { todo: Todo }) {
 		<>
 			<Card
 				hoverable={true}
-				className=" pt-3 cursor-pointer drop-shadow-md font-Inter"
+				className=" pt-3 cursor-default drop-shadow-md font-Inter"
 				size="small"
 				style={{ width: 300 }}
 				actions={[
 					<Popover placement="bottom" content={deletePopover}>
 						<DeleteOutlined
-							className="active:opacity-50"
+							className="active:opacity-50 cursor-pointer"
 							onClick={() => handleDeleteTodo(todo)}
 							key="delete"
 						/>
 					</Popover>,
 					<Popover placement="bottom" content={editPopover}>
 						<EditOutlined
-							className="active:opacity-50"
+							className="active:opacity-50 cursor-pointer"
 							onClick={() => editTodo(todo)}
 							key="edit"
 						/>
 					</Popover>,
 					<Popover placement="bottom" content={finishedPopover}>
 						<CheckCircleOutlined
-							className="active:opacity-50"
+							className="active:opacity-50 cursor-pointer"
 							onClick={() => handleFinishTodo(todo)}
 							key="finish"
 						/>
@@ -148,7 +148,7 @@ function TodoCard({ todo }: { todo: Todo }) {
 					<div className="animate__animated animate__flipInX flex flex-col gap-5">
 						<button onClick={showModal}>
 							<Meta
-								className="text-left cursor-pointer"
+								className="text-left"
 								title={title}
 								description={description}
 							/>
