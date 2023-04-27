@@ -76,7 +76,7 @@ function TodoForm() {
 					wrapperCol={{ span: 24 }}
 					layout="horizontal"
 					style={{ width: 400 }}
-					onFinishFailed={(errorInfo) => {
+					onFinishFailed={(errorInfo: Error) => {
 						console.error("Fill out form Error :", errorInfo);
 					}}
 					form={form}

@@ -11,12 +11,14 @@ import AOS from "aos";
 import logo from "./assets/logo.svg";
 
 import { TodoProvider } from "./context/TodoContext";
+import Login from "./Login";
 function App() {
 	useEffect(() => {
 		AOS.init();
 	}, []);
 	const [loading, setLoading] = useState(true);
 	const [isDarkMode, setIsDarkMode] = useState(false);
+	const [isLogin, setIsLogin] = useState(false);
 	const handleThemeChange = () => {
 		setIsDarkMode((previousValue) => !previousValue);
 	};
@@ -38,8 +40,9 @@ function App() {
 						<Spin size="large" />
 					</div>
 				) : (
-					<div className="App bg-neutral-100/50 flex flex-col justify-center items-center">
-						<header
+					<div className="App bg-neutral-100/50 h-100% pb-14 flex flex-col justify-center items-center">
+						{isLogin ? "Hello" : <Login setIsLogin={setIsLogin} />}
+						{/* <header
 							data-aos="fade-in"
 							data-aos-delay="600"
 							data-aos-duration="1000"
@@ -85,7 +88,7 @@ function App() {
 						>
 							<TodoForm />
 							<TodoList />
-						</section>
+						</section> */}
 					</div>
 				)}
 			</TodoProvider>
