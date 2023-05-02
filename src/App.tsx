@@ -12,6 +12,7 @@ import logo from "./assets/logo.svg";
 
 import { TodoProvider } from "./context/TodoContext";
 import Login from "./Login";
+import AIInput from "./components/AI-Input";
 function App() {
 	useEffect(() => {
 		AOS.init();

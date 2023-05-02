@@ -4,6 +4,7 @@ import { Todo } from "../interfaces/interfaces";
 import "animate.css";
 import anyTaskIcon from "../assets/any-task-icon.png";
 import Filter from "./Filter";
+import AIInput from "./AI-Input";
 
 function TodoList() {
 	const { todos } = useTodoContext();
@@ -13,6 +14,7 @@ function TodoList() {
 			id="todos"
 			className="w-auto border-t bg-white/50 rounded-xl px-5 pt-5 pb-7 shadow-2xl"
 		>
+			<AIInput />
 			{todos.length === 0 ? (
 				<div className="animate__animated animate__flipInX animate__delay-1s flex lg:flex-col py-3 lg:w-[644px] text-center">
 					<div className="mt-48 flex flex-col gap-5 items-center">
