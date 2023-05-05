@@ -17,7 +17,7 @@ EventWise is an advanced event planning and management application that combines
 
 ![EventWise Dashboard](https://i.imgur.com/8gH5ara.png)
 ![EventWise Task Management](https://i.imgur.com/adGX1w4.png)
-![EventWise Highlights View](https://i.imgur.com/GVXR1GI.png)
+![EventWise Highlights View](https://i.imgur.com/buZ4Ih2.png)
 ![EventWise AI Creator](link_to_ai_creator_screenshot)
 
 ## Installation
