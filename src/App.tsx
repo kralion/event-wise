@@ -47,12 +47,12 @@ function App() {
 							data-aos="fade-in"
 							data-aos-delay="600"
 							data-aos-duration="1000"
-							className=" grid lg:grid-cols-7 grid-cols-3 gap-3 lg:gap-5 items-center mt-7 mb-10 mx-3 "
+							className=" flex justify-between gap-3 lg:gap-[940px] items-center mt-7 mb-10 "
 						>
 							<div className=" flex items-center drop-shadow-md">
 								<img src={logo} width={50} alt="Logo" />
 								<p className="font-SecularOne pl-2  pt-1 text-zinc-600 font-semibold text-2xl">
-									InTodo
+									EventWise
 								</p>
 							</div>
 							<div className="lg:col-end-11 col-end-5 lg:ml-5 flex justify-center items-center">
