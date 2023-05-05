@@ -25,6 +25,10 @@ export const categories = [
 		label: "Social",
 	},
 	{
+		value: "corporate",
+		label: "Corporate",
+	},
+	{
 		value: "others",
 		label: "Others",
 	},

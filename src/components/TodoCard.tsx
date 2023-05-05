@@ -78,7 +78,7 @@ function TodoCard({ todo }: { todo: Todo }) {
 				]}
 			>
 				<Modal
-					title="TODO DETAILS"
+					title="Todo Highlights"
 					maskStyle={{ backgroundColor: "rgba(0,0,0,0.5)" }}
 					bodyStyle={{
 						borderRadius: 5,
@@ -127,6 +127,8 @@ function TodoCard({ todo }: { todo: Todo }) {
 											? "red"
 											: category === "other"
 											? "gold"
+											: category === "other"
+											? "cyan"
 											: "purple"
 									}
 								>
