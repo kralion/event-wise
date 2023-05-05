@@ -22,18 +22,18 @@ export const TodoContext = createContext<TodoContextProps>({
 	handleUpdateTodo: () => {},
 });
 
-/* const localTodos = localStorage.getItem("todos");
+const localTodos = localStorage.getItem("todos");
 if (localTodos) {
 	INITIAL_STATE.todos = JSON.parse(localTodos);
-} */
+}
 export const TodoProvider = ({ children }: childrenProps) => {
 	const [editMode, setEditMode] = useState<boolean>(false);
 	const [currentTodo, setCurrentTodo] = useState<Todo | null>(null);
 	const [todoState, dispatch] = useReducer(todoReducer, INITIAL_STATE);
-	/* useEffect(() => {
+	useEffect(() => {
 		localStorage.setItem("todos", JSON.stringify(todoState.todos));
 	}, [todoState.todos]);
- */
+
 	const handleAddTodo = (newTodo: Todo) => {
 		dispatch({ type: "ADD_TODO", payload: { ...newTodo, id: nanoid() } });
 	};
