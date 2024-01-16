@@ -48,7 +48,7 @@ function App() {
               <div className=" flex items-center drop-shadow-md">
                 <img src={logo} width={50} alt="Logo" />
                 <p className="font-SecularOne pl-2  pt-1 text-zinc-600 font-semibold text-2xl">
-                  Event Wise
+                  EventWise
                 </p>
               </div>
               <div className="lg:col-end-11 col-end-5 lg:ml-5 flex justify-center items-center">
