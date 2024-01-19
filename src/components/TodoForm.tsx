@@ -11,12 +11,21 @@ import {
   TimePicker,
   Space,
 } from "antd";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { InputRef } from "antd";
 import { categories } from "../data/categories";
+import moment from "moment";
 const timeFormat = "HH:mm";
 const dateFormat = "YYYY-MM-DD";
+interface TimeValues {
+  startTime: string;
+  endTime: string;
+}
 
+interface MyFormState {
+  differenceInMilliseconds?: number;
+  formattedDifference?: string;
+}
 function TodoForm() {
   const {
     editMode,
@@ -25,6 +34,9 @@ function TodoForm() {
     handleAddTodo,
     handleUpdateTodo,
   } = useTodoContext();
+  const [timeStampDifference, setTimeStampDifference] = useState<MyFormState>(
+    {}
+  );
 
   const [form] = Form.useForm();
   const inputRef = useRef<InputRef>(null);
@@ -51,13 +63,35 @@ function TodoForm() {
       ...changedValues,
     });
   };
+  const handleTimeChange = (values: [moment.Moment, moment.Moment]) => {
+    if (values[0] && values[1]) {
+      const startDate = values[0];
+      const endDate = values[1];
 
+      const differenceInMilliseconds = endDate.diff(startDate);
+      const duration = moment.duration(differenceInMilliseconds);
+
+      let formattedDifference;
+      if (duration.asHours() >= 1) {
+        formattedDifference = `${Math.round(duration.asHours())} hora(s)`;
+      } else {
+        formattedDifference = `${Math.round(duration.asMinutes())} minuto(s)`;
+      }
+      setTimeStampDifference({
+        differenceInMilliseconds,
+        formattedDifference,
+      });
+    }
+  };
   const onFinish = (values: Todo) => {
     if (currentTodo) {
       handleUpdateTodo(values);
       setEditMode(false);
     } else {
-      handleAddTodo(values);
+      handleAddTodo({
+        ...values,
+        ...timeStampDifference,
+      });
     }
     form.resetFields();
     inputRef.current?.focus();
@@ -151,6 +185,7 @@ function TodoForm() {
               format={timeFormat}
               separator=" - "
               allowClear={true}
+              onChange={(values: any) => handleTimeChange(values)}
               className="pl-10 w-56 font-Inter rounded-lg"
             />
           </Form.Item>

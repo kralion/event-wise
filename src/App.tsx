@@ -80,7 +80,7 @@ function App() {
               data-aos-delay="200"
               data-aos-duration="500"
               id="frames"
-              className="flex gap-8 justify-between items-start w-full"
+              className="flex gap-8  w-full"
             >
               <TodoForm />
               <TodoList />

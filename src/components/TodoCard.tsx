@@ -11,6 +11,8 @@ import { Todo } from "../interfaces/interfaces";
 import "animate.css";
 import { useState, useEffect } from "react";
 
+// ...
+
 moment.locale("es");
 const { Meta } = Card;
 const deletePopover = <p>Delete</p>;
@@ -35,8 +37,6 @@ function TodoCard({ todo }: { todo: Todo }) {
 
   const handleOk = () => {
     setIsModalOpen(false);
-
-    console.log(duration);
   };
 
   return (
@@ -99,7 +99,8 @@ function TodoCard({ todo }: { todo: Todo }) {
               <span className="font-semibold font-Roboto px-5 ">
                 Estimated duration :
               </span>
-              {String(duration)}
+
+              {duration}
             </p>
             <p className="font-Source-Sans-Pro text-neutral-500 py-2">
               <span className="font-semibold font-Roboto px-5 ">
