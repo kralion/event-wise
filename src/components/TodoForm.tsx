@@ -9,6 +9,7 @@ import {
   DatePicker,
   InputNumber,
   TimePicker,
+  Space,
 } from "antd";
 import { useEffect, useRef } from "react";
 import type { InputRef } from "antd";
@@ -64,19 +65,19 @@ function TodoForm() {
 
   return (
     <section
-      className="backdrop-blur  bg-white/50 shadow-2xl  border-t rounded-xl"
+      className="backdrop-blur h-fit shadow-2xl  border-t rounded-xl"
       id="todo-form"
     >
       <h1 className="lg:text-xl rounded-t-xl text-center p-2 bg-gray-100/80 text-md font-SourceSansPro font-semibold ">
         {editMode ? "Edit Task" : "New Task"}
       </h1>
-      <div className="p-8">
+      <Space className="p-8 ">
         <Form
           labelCol={{ span: 7 }}
           wrapperCol={{ span: 24 }}
           layout="horizontal"
           style={{ width: 400 }}
-          onFinishFailed={(errorInfo) => {
+          onFinishFailed={(errorInfo: any) => {
             console.error("Fill out form Error :", errorInfo);
           }}
           form={form}
@@ -98,7 +99,7 @@ function TodoForm() {
             <Input
               name="title"
               ref={inputRef}
-              className="font-Inter rounded-xl"
+              className="font-Inter  rounded-xl"
             />
           </Form.Item>
           <Form.Item name="description" label="Description">
@@ -156,14 +157,15 @@ function TodoForm() {
           <Form.Item name="category" label="Category">
             <Cascader className="font-Inter" options={categories} />
           </Form.Item>
-          <Form.Item name="stakeholders" label="Stakeholders">
+          <Form.Item name="stakeholders" label="Involved">
             <InputNumber min={1} max={10} className="pl-5 rounded-lg" />
           </Form.Item>
           <div className=" flex gap-24 mt-16 justify-center">
             <Form.Item>
               <Button
                 htmlType="submit"
-                className="font-Inter text-slate-900 hover:bg-cyan-100 hover:drop-shadow-xl hover:shadow-cyan-300 w-32 h-10 rounded-xl active:bg-cyan-200 active:scale-110"
+                type="primary"
+                className="font-Inter hover:drop-shadow-xl  w-32 h-10 rounded-xl  active:scale-110"
               >
                 {editMode ? "Save" : "Add"}
               </Button>
@@ -171,7 +173,7 @@ function TodoForm() {
             <Form.Item>
               <Button
                 danger
-                className="font-Inter active:scale-110 hover:bg-red-100  hover:drop-shadow-xl hover:shadow-red-300 w-32 h-10 rounded-xl active:bg-red-200"
+                className="font-Inter active:scale-110  hover:drop-shadow-xl hover:shadow-red-300 w-32 h-10 rounded-xl "
                 onClick={handleUndo}
               >
                 {editMode ? "Cancel" : "Clean"}
@@ -179,7 +181,7 @@ function TodoForm() {
             </Form.Item>
           </div>
         </Form>
-      </div>
+      </Space>
     </section>
   );
 }

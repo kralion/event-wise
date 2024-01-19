@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TodoList from "./components/TodoList";
 import TodoForm from "./components/TodoForm";
-import { ConfigProvider, theme, Button, Spin } from "antd";
+import { ConfigProvider, theme, Button, Spin, Typography, Space } from "antd";
 import enEN from "antd/es/locale/en_US";
 import "aos/dist/aos.css";
 import AOS from "aos";
@@ -35,25 +35,28 @@ function App() {
             <Spin size="large" />
           </div>
         ) : (
-          <div className="App bg-neutral-100/50 p-12 space-y-8 items-center">
-            <header
+          <div className="App  bg-white/50  px-16 py-8  space-y-8 items-center">
+            <div
               data-aos="fade-in"
               data-aos-delay="600"
               data-aos-duration="1000"
-              className=" flex justify-between items-center "
+              className=" flex justify-between w-full items-center "
             >
-              <div className=" flex items-center gap-2 drop-shadow-md">
+              <div className=" flex items-start gap-2 drop-shadow-md">
                 <img src={logo} width={40} alt="Logo" />
-                <p className="font-SecularOne text-zinc-600 font-semibold text-2xl">
+                <Typography.Title
+                  level={2}
+                  className="font-SecularOne font-semibold "
+                >
                   Event
                   <span className="text-cyan-500">Wise</span>
-                </p>
+                </Typography.Title>
               </div>
               <div>
                 <button onClick={handleThemeChange}>
                   {isDarkMode ? (
                     <img
-                      className=""
+                      className="active:-rotate-180 rotate-[250deg] duration-500"
                       src="https://cdn-icons-png.flaticon.com/128/702/702471.png"
                       width={25}
                       height={25}
@@ -61,6 +64,7 @@ function App() {
                     />
                   ) : (
                     <img
+                      className="active:rotate-90 duration-500"
                       src="https://cdn-icons-png.flaticon.com/128/606/606795.png"
                       width={25}
                       height={25}
@@ -69,14 +73,14 @@ function App() {
                   )}
                 </button>
               </div>
-            </header>
+            </div>
 
             <section
               data-aos="fade-up"
               data-aos-delay="200"
               data-aos-duration="500"
               id="frames"
-              className="flex gap-6 "
+              className="flex gap-8 justify-between items-start w-full"
             >
               <TodoForm />
               <TodoList />
