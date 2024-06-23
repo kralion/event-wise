@@ -1,14 +1,13 @@
-import TodoCard from "./TodoCard";
+import "animate.css";
 import { useTodoContext } from "../context/TodoContext";
 import { Todo } from "../interfaces/interfaces";
-import "animate.css";
-import { Space } from "antd";
+import TodoCard from "./TodoCard";
 
 function TodoList() {
   const { todos } = useTodoContext();
 
   return (
-    <>
+    <div className="w-full lg:w-auto">
       {todos.length === 0 ? (
         <div className="animate__animated animate__flipInX flex flex-col justify-center items-center  animate__delay-1s w-full  py-3">
           <img
@@ -23,13 +22,13 @@ function TodoList() {
           </p>
         </div>
       ) : (
-        <div className="w-full h-full  grid lg:grid-cols-2 grid-col-1 gap-4 ">
+        <div className="grid lg:grid-cols-2 grid-col-1 gap-4 ">
           {todos.map((todo: Todo) => (
             <TodoCard key={todo.id} todo={todo} />
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

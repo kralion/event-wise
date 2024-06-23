@@ -42,7 +42,7 @@ function TodoCard({ todo }: { todo: Todo }) {
   return (
     <Card
       hoverable={true}
-      className="p-3 min-w-80 cursor-pointer rounded-xl font-Inter"
+      className="p-3 lg:min-w-80 cursor-pointer rounded-xl font-Inter"
       size="small"
       actions={[
         <Popover placement="bottom" content={deletePopover}>
@@ -70,11 +70,15 @@ function TodoCard({ todo }: { todo: Todo }) {
     >
       <Modal
         title="TODO DETAILS"
-        maskStyle={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-        bodyStyle={{
-          borderRadius: 5,
-          padding: 5,
-          border: "1px solid #e8e8e8",
+        styles={{
+          mask: {
+            backgroundColor: "rgba(0,0,0,0.5)",
+          },
+          body: {
+            borderRadius: 5,
+            padding: 5,
+            border: "1px solid #e8e8e8",
+          },
         }}
         style={{ top: 80 }}
         open={isModalOpen}

@@ -10,13 +10,18 @@ import {
   InputNumber,
   TimePicker,
   Space,
+  Drawer,
+  Typography,
+  Card,
 } from "antd";
 import { useEffect, useRef, useState } from "react";
 import type { InputRef } from "antd";
 import { categories } from "../data/categories";
 import moment from "moment";
 const timeFormat = "HH:mm";
+const { Title } = Typography;
 const dateFormat = "YYYY-MM-DD";
+import { PlusOutlined } from "@ant-design/icons";
 interface TimeValues {
   startTime: string;
   endTime: string;
@@ -39,6 +44,7 @@ function TodoForm() {
   );
 
   const [form] = Form.useForm();
+  const [open, setOpen] = useState(false);
   const inputRef = useRef<InputRef>(null);
 
   useEffect(() => {
@@ -57,12 +63,6 @@ function TodoForm() {
     }
   };
 
-  const handleValuesChange = (changedValues: Todo, allValues: Todo) => {
-    form.setFieldsValue({
-      ...allValues,
-      ...changedValues,
-    });
-  };
   const handleTimeChange = (values: [moment.Moment, moment.Moment]) => {
     if (values[0] && values[1]) {
       const startDate = values[0];
@@ -98,26 +98,33 @@ function TodoForm() {
   };
 
   return (
-    <section
-      className="backdrop-blur h-fit shadow-2xl  border-t rounded-xl"
-      id="todo-form"
-    >
-      <h1 className="lg:text-xl rounded-t-xl text-center p-2 bg-gray-100/80 text-md font-SourceSansPro font-semibold ">
-        {editMode ? "Edit Task" : "New Task"}
-      </h1>
-      <Space className="p-8 ">
+    <>
+      <Button
+        onClick={() => setOpen(true)}
+        type="primary"
+        size="large"
+        className="font-Inter rounded-full z-10 bottom-6 right-4 fixed lg:hidden"
+        icon={<PlusOutlined />}
+      />
+      <Drawer
+        className="lg:hidden rounded-t-2xl"
+        placement="bottom"
+        closeIcon={null}
+        title={null}
+        height="80vh"
+        onClose={() => setOpen(false)}
+        open={open}
+      >
+        <div className="w-16 h-2 absolute z-10 -top-4 left-28 right-28 bg-gray-300 rounded-full" />
+        <Title level={4} className="font-Inter">
+          {editMode ? "Edit Task" : "New Task"}
+        </Title>
+
         <Form
-          labelCol={{ span: 7 }}
-          wrapperCol={{ span: 24 }}
           layout="horizontal"
-          style={{ width: 400 }}
-          onFinishFailed={(errorInfo: any) => {
-            console.error("Fill out form Error :", errorInfo);
-          }}
           form={form}
-          className="font-SourceSansPro"
+          className="font-SourceSansPro space-y-2"
           onFinish={onFinish}
-          onValuesChange={handleValuesChange}
         >
           <Form.Item
             rules={[
@@ -130,17 +137,13 @@ function TodoForm() {
             name="title"
             label="Title"
           >
-            <Input
-              name="title"
-              ref={inputRef}
-              className="font-Inter  rounded-xl"
-            />
+            <Input name="title" ref={inputRef} className="font-Inter" />
           </Form.Item>
           <Form.Item name="description" label="Description">
-            <Input.TextArea rows={4} className="font-Inter rounded-xl" />
+            <Input.TextArea rows={2} className="font-Inter " />
           </Form.Item>
           <Form.Item name="priority" label="Priority">
-            <Select className="w-10 text-center font-Inter rounded-xl">
+            <Select>
               <Select.Option value="low" className="font-Inter">
                 Low
               </Select.Option>
@@ -164,7 +167,8 @@ function TodoForm() {
           >
             <DatePicker
               placeholder=""
-              className=" font-Inter cursor-pointer w-52 rounded-lg"
+              className=" font-Inter cursor-pointer"
+              rootClassName="w-full"
               format={dateFormat}
             />
           </Form.Item>
@@ -186,14 +190,125 @@ function TodoForm() {
               separator=" - "
               allowClear={true}
               onChange={(values: any) => handleTimeChange(values)}
-              className="pl-10 w-56 font-Inter rounded-lg"
+              className="font-Inter "
             />
           </Form.Item>
           <Form.Item name="category" label="Category">
             <Cascader className="font-Inter" options={categories} />
           </Form.Item>
           <Form.Item name="stakeholders" label="Involved">
-            <InputNumber min={1} max={10} className="pl-5 rounded-lg" />
+            <InputNumber min={1} rootClassName="w-full" />
+          </Form.Item>
+          <div className=" flex w-full justify-between">
+            <Form.Item>
+              <Button
+                htmlType="submit"
+                type="primary"
+                className="font-Inter hover:drop-shadow-xl  w-24 h-10 rounded-xl  active:scale-110"
+              >
+                {editMode ? "Save" : "Add"}
+              </Button>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                danger
+                className="font-Inter active:scale-110  hover:drop-shadow-xl hover:shadow-red-300 w-24 h-10 rounded-xl "
+                onClick={handleUndo}
+              >
+                {editMode ? "Cancel" : "Clean"}
+              </Button>
+            </Form.Item>
+          </div>
+        </Form>
+      </Drawer>
+      <Card
+        title={editMode ? "Edit Task" : "New Task"}
+        className="backdrop-blur  shadow-lg hidden lg:block  border-t rounded-xl"
+        id="todo-form"
+      >
+        <Form
+          layout="horizontal"
+          form={form}
+          className="font-SourceSansPro"
+          onFinish={onFinish}
+        >
+          <Form.Item
+            rules={[
+              {
+                required: true,
+                message: "Input your title!",
+                pattern: new RegExp(/^[a-zA-Z0-9 ]+$/),
+              },
+            ]}
+            name="title"
+            label="Title"
+          >
+            <Input name="title" ref={inputRef} className="font-Inter" />
+          </Form.Item>
+          <Form.Item name="description" label="Description">
+            <Input.TextArea rows={4} className="font-Inter " />
+          </Form.Item>
+          <Form.Item name="priority" label="Priority">
+            <Select>
+              <Select.Option value="low" className="font-Inter">
+                Low
+              </Select.Option>
+              <Select.Option value="mid" className="font-Inter">
+                Mid
+              </Select.Option>
+              <Select.Option value="high" className="font-Inter">
+                High
+              </Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            rules={[
+              {
+                required: true,
+                message: "Select a date!",
+              },
+            ]}
+            name="date"
+            label="Date"
+          >
+            <DatePicker
+              placeholder=""
+              className=" font-Inter cursor-pointer"
+              rootClassName="w-full"
+              format={dateFormat}
+            />
+          </Form.Item>
+          <Form.Item
+            rules={[
+              {
+                required: true,
+                message: "Please select an interval of time!",
+              },
+            ]}
+            name="duration"
+            label="Duration"
+          >
+            <TimePicker.RangePicker
+              use12Hours
+              placeholder={["Start", "End"]}
+              minuteStep={15}
+              format={timeFormat}
+              separator=" - "
+              allowClear={true}
+              onChange={(values: any) => handleTimeChange(values)}
+              className="font-Inter "
+            />
+          </Form.Item>
+          <Form.Item name="category" label="Category">
+            <Cascader className="font-Inter" options={categories} />
+          </Form.Item>
+          <Form.Item name="stakeholders" label="Involved">
+            <InputNumber
+              min={1}
+              max={10}
+              className="pl-5 rounded-lg"
+              rootClassName="w-full"
+            />
           </Form.Item>
           <div className=" flex gap-24 mt-16 justify-center">
             <Form.Item>
@@ -216,8 +331,8 @@ function TodoForm() {
             </Form.Item>
           </div>
         </Form>
-      </Space>
-    </section>
+      </Card>
+    </>
   );
 }
 
