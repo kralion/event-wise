@@ -115,7 +115,7 @@ function TodoForm() {
         onClose={() => setOpen(false)}
         open={open}
       >
-        <div className="w-16 h-2 absolute z-10 -top-4 left-28 right-28 bg-gray-300 rounded-full" />
+        <div className="w-16 h-2 absolute z-10 top-2 left-28 right-28 bg-gray-300 rounded-full" />
         <Title level={4} className="font-Inter">
           {editMode ? "Edit Task" : "New Task"}
         </Title>
