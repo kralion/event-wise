@@ -3,7 +3,16 @@ import {
   CheckCircleOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Card, Popover, Tag, Space, Avatar, Skeleton, Modal } from "antd";
+import {
+  Card,
+  Popover,
+  Tag,
+  Space,
+  Avatar,
+  Skeleton,
+  Modal,
+  Button,
+} from "antd";
 import { useTodoContext } from "../context/TodoContext";
 import moment from "moment";
 import "moment/locale/es";
@@ -46,25 +55,143 @@ function TodoCard({ todo }: { todo: Todo }) {
       size="small"
       actions={[
         <Popover placement="bottom" content={deletePopover}>
-          <DeleteOutlined
+          <Button
             className="active:opacity-50"
+            type="text"
             onClick={() => handleDeleteTodo(todo)}
-            key="delete"
-          />
+          >
+            <svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              style={{
+                animation:
+                  "rotate-tr 1s cubic-bezier(1,-.28,.01,1.13) infinite alternate-reverse both",
+                transformOrigin: "right center",
+              }}
+            >
+              <style>
+                {`
+            @keyframes rotate-tr {
+                0% { transform: rotate(0); }
+                100% { transform: rotate(20deg); }
+            }
+              `}
+              </style>
+              <path
+                className="fill-neutral-500"
+                d="M16.773 10.083a.75.75 0 00-1.49-.166l1.49.166zm-1.535 7.027l.745.083-.745-.083zm-6.198 0l-.745.083.745-.083zm-.045-7.193a.75.75 0 00-1.49.166l1.49-.166zm5.249 7.333h-4.21v1.5h4.21v-1.5zm1.038-7.333l-.79 7.11 1.491.166.79-7.11-1.49-.166zm-5.497 7.11l-.79-7.11-1.49.166.79 7.11 1.49-.165zm.249.223a.25.25 0 01-.249-.222l-1.49.165a1.75 1.75 0 001.739 1.557v-1.5zm4.21 1.5c.892 0 1.64-.67 1.74-1.557l-1.492-.165a.25.25 0 01-.248.222v1.5z"
+              />
+              <path
+                className="fill-sky-500"
+                fill-rule="evenodd"
+                d="M11 6a1 1 0 00-1 1v.25H7a.75.75 0 000 1.5h10a.75.75 0 000-1.5h-3V7a1 1 0 00-1-1h-2z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </Button>
         </Popover>,
         <Popover placement="bottom" content={editPopover}>
-          <EditOutlined
+          <Button
             className="active:opacity-50"
+            type="text"
             onClick={() => editTodo(todo)}
-            key="edit"
-          />
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <style>
+                {" "}
+                {`
+     .rotate-right {
+        animation: rotate-right 1s cubic-bezier(1, -0.01, 0.13, 1.15) infinite alternate-reverse both;
+        transform-origin: top center;
+      }
+
+      @keyframes rotate-right {
+        0% {
+          transform: rotate(0);
+        }
+
+        25% {
+          transform: rotate(10deg);
+        }
+
+        50 {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(-10deg);
+        }
+      }
+          `}
+              </style>
+              <g className="rotate-right">
+                <path
+                  className="stroke-sky-500"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                  d="M9.5 7.307h5"
+                />
+                <path
+                  className="stroke-neutral-500"
+                  strokeWidth="1.5"
+                  d="M9 5.5A1.5 1.5 0 0110.5 4h3A1.5 1.5 0 0115 5.5v11.3a1.5 1.5 0 01-.54 1.152l-1.5 1.249a1.5 1.5 0 01-1.92 0l-1.5-1.249A1.5 1.5 0 019 16.8V5.5z"
+                />
+              </g>
+            </svg>
+          </Button>
         </Popover>,
         <Popover placement="bottom" content={finishedPopover}>
-          <CheckCircleOutlined
+          <Button
             className="active:opacity-50"
+            type="text"
             onClick={() => handleFinishTodo(todo)}
-            key="finish"
-          />
+          >
+            <svg
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              style={{
+                animation: "check 2s infinite cubic-bezier(.99,-.1,.01,1.02)",
+                strokeDashoffset: 100,
+                strokeDasharray: 100,
+              }}
+            >
+              <style>
+                {`
+        @keyframes check {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+      `}
+              </style>
+              <circle
+                cx="12"
+                cy="12"
+                r="8"
+                className="stroke-neutral-500"
+                strokeWidth="1.5"
+              />
+              <path
+                className="stroke-sky-500"
+                strokeLinecap="round"
+                strokeWidth="1.5"
+                d="M9.215 12.052l1.822 1.805 3.748-3.714"
+              />
+            </svg>
+          </Button>
         </Popover>,
       ]}
     >
